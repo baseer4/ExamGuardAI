@@ -1,0 +1,125 @@
+import React, { useState } from "react";
+import { IoAdd } from "react-icons/io5";
+import { IoTrash } from "react-icons/io5"; // import trash icon for delete
+
+function QuestionForm() {
+  const [formData, setFormData] = useState([
+    {
+      title: "",
+      question: "",
+      testcasefile: null,
+    },
+  ]);
+
+  const handleChange = (index, e) => {
+    const { name, value, files } = e.target;
+    setFormData((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              [name]: name === "testcasefile" ? files[0] : value,
+            }
+          : item
+      )
+    );
+  };
+
+  const handleAddQuestion = () => {
+    setFormData((prev) => [
+      ...prev,
+      {
+        title: "",
+        question: "",
+        testcasefile: null,
+      },
+    ]);
+  };
+
+  const handleRemoveQuestion = (index) => {
+    setFormData((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+
+    formData.forEach((entry, index) => {
+      data.append(`title_${index}`, entry.title);
+      data.append(`question_${index}`, entry.question);
+      data.append(`testcasefile_${index}`, entry.testcasefile);
+    });
+
+    console.log("Submitted formData:", formData);
+    // send `data` to your server if needed
+  };
+
+  return (
+    <div className="flex px-35 mt-20">
+      <form onSubmit={handleSubmit}>
+        {formData.map((item, index) => (
+          <div key={index} className="mb-4 w-[50vw]">
+            <div tabIndex={-1} className="collapse collapse-open collapse-arrow border border-base-300 bg-base-100 rounded-box">
+              <div className="collapse-title text-lg font-bold flex justify-between items-center">
+                <span>Question {index + 1}</span>
+                {/* Remove Button */}
+                {formData.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveQuestion(index)}
+                    className="btn btn-sm btn-error"
+                  >
+                    <IoTrash />
+                    Remove
+                  </button>
+                )}
+              </div>
+              <div className="collapse-content flex flex-col">
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  value={item.title}
+                  onChange={(e) => handleChange(index, e)}
+                  className="input input-md w-[30vw] mb-2"
+                />
+                <textarea
+                  name="question"
+                  placeholder="Question"
+                  value={item.question}
+                  onChange={(e) => handleChange(index, e)}
+                  className="textarea textarea-md w-[45vw] h-[30vh] resize-none mb-2"
+                />
+                <div>
+                  <p>Upload testcases</p>
+                  <input
+                    type="file"
+                    name="testcasefile"
+                    onChange={(e) => handleChange(index, e)}
+                    className="file-input mt-2"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div className="flex flex-col items-end space-y-4 mt-4">
+          <button
+            type="button"
+            onClick={handleAddQuestion}
+            className="btn btn-secondary flex items-center gap-2"
+          >
+            <IoAdd />
+            Add Another Question
+          </button>
+          <button type="submit" className="btn btn-neutral mb-5">
+            🚀 Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+export default QuestionForm;
