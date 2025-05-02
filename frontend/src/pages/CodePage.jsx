@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import { IoTrash } from "react-icons/io5"; // import trash icon for delete
+import { IoTrash } from "react-icons/io5";
 
 function QuestionForm() {
   const [formData, setFormData] = useState([
@@ -51,11 +51,10 @@ function QuestionForm() {
     });
 
     console.log("Submitted formData:", formData);
-    // send `data` to your server if needed
   };
 
   return (
-    <div className="flex px-35 mt-20">
+    <div className="flex px-30 mt-20">
       <form onSubmit={handleSubmit}>
         {formData.map((item, index) => (
           <div key={index} className="mb-4 w-[50vw]">
@@ -118,6 +117,28 @@ function QuestionForm() {
           </button>
         </div>
       </form>
+
+      <div className="flex flex-col mt-5 gap-2 mx-[5rem] ">
+        <p className="text-xl font-semibold underline underline-offset-2 ">Configuration:</p>
+        <p>Select Type of Test</p>
+        <select className="select select-md w-sm sm:w-[15vw]">
+          <option value="">Select an option</option>
+          <option value="1">Coding problem</option>
+        </select>
+        <div>
+    
+          <p>Test duration:</p>
+          <select className="select select-md mt-2 w-sm sm:w-[15vw]">
+          <option value="">Select an option</option>
+          <option value="1">30 min</option>
+          <option value="1">1 hour</option>
+          <option value="1">1:30 hour</option>
+          <option value="1">2:00 hours</option>
+
+        </select>
+        {/* can add marks section */}
+        </div>
+      </div>
     </div>
   );
 }
