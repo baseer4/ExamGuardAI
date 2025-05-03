@@ -12,8 +12,8 @@ const HomePage = () => {
            <p className="mt-5 font-semibold text-lg text-gray-500">Experience the power of AI with ExamGuardAI. Secure, reliable exam monitoring for both test-takers and creators, ensuring fair assessments every time.</p>
 
            <div className="mt-10 flex gap-5 justify-center btn-lg">
-              <button className="btn btn-accent z-10" onClick={()=> navigate("/join")}>Take a Test</button>
-              <button className="btn btn-accent z-10"  onClick={() => navigate("/create")}>Create a Test</button>
+              <button className="btn btn-accent z-10 hover:animate-fade-in-scale" onClick={()=> navigate("/join")}>Take a Test</button>
+              <button className="btn btn-accent z-10 hover:animate-fade-in-scale"  onClick={() => navigate("/create")}>Create a Test</button>
            </div>
 
         </div>
