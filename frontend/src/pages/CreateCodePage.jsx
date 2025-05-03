@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { IoTrash } from "react-icons/io5";
 
-function QuestionForm() {
+function CreateCodePage() {
   const [formData, setFormData] = useState([
     {
       title: "",
@@ -143,4 +143,5 @@ function QuestionForm() {
   );
 }
 
-export default QuestionForm;
+export default CreateCodePage;
+

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const McqPage = () => {
+const CreateMcqPage = () => {
   return (
     <div className="container">
       <h1>Enter the questions</h1>
@@ -11,4 +11,4 @@ const McqPage = () => {
   )
 }
 
-export default McqPage
+export default CreateMcqPage;

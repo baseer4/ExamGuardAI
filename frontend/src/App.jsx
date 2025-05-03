@@ -4,9 +4,10 @@ import "./App.css"
 import AboutPage from "./pages/AboutPage";
 import CreatePage from "./pages/CreatePage";
 import LayoutWithNavbar from "./layouts/LayoutWithNavbar";
-import AssignmentPage from "./pages/AssignmentPage";
-import CodePage from "./pages/CodePage";
-import McqPage from "./pages/McqPage";
+import CreateMcqPage from "./pages/CreateMcqPage";
+import CreateAssignmentPage from "./pages/CreateAssignmentPage";
+import CreateCodePage from "./pages/CreateCodePage";
+import JoinPage from "./pages/JoinPage";
 
 function App() {
   
@@ -21,9 +22,10 @@ function App() {
             <Route path="/about" element= {<AboutPage/>}   />
 
             <Route path="/create" element= {<CreatePage/>}   />
-            <Route path="/create/mcq" element= {<McqPage/>}   />
-            <Route path="/create/assignment" element= {<AssignmentPage/>}   />
-            <Route path="/create/code" element= {<CodePage/>}   />
+            <Route path="/create/mcq" element= {<CreateMcqPage/>}   />
+            <Route path="/create/assignment" element= {<CreateAssignmentPage/>}   />
+            <Route path="/create/code" element= {<CreateCodePage/>}   />
+            <Route path="/join" element ={<JoinPage/>} />
 
           </Route>
 
