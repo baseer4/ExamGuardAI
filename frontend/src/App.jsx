@@ -8,6 +8,7 @@ import CreateMcqPage from "./pages/CreateMcqPage";
 import CreateAssignmentPage from "./pages/CreateAssignmentPage";
 import CreateCodePage from "./pages/CreateCodePage";
 import JoinPage from "./pages/JoinPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   
@@ -20,6 +21,8 @@ function App() {
 
             <Route path="/" element= {<HomePage/>}   />
             <Route path="/about" element= {<AboutPage/>}   />
+            <Route path="/signup" element= {<SignupPage/>} />
+            <Route path="/login" element= {<LoginPage/>} />
 
             <Route path="/create" element= {<CreatePage/>}   />
             <Route path="/create/mcq" element= {<CreateMcqPage/>}   />

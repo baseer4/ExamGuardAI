@@ -51,7 +51,7 @@ function CreateAssignmentPage() {
   };
 
   return (
-    <div className="flex px-30 mt-20">
+    <div className="flex px-30 mt-20 animate-fade-in">
       <form onSubmit={handleSubmit}>
         {formData.map((item, index) => (
           <div key={index} className="mb-4 w-[50vw]">
