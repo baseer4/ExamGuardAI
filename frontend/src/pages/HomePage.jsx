@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div>
 
-      <div className="mt-20 flex justify-center ">
+      <div className="mt-20 flex justify-center animate-fade-in">
         <div className="max-w-2xl text-center ">
            <h1 className="text-5xl font-semibold font-round">AI-powered proctoring for secure exams</h1>
            <p className="mt-5 font-semibold text-lg text-gray-500">Experience the power of AI with ExamGuardAI. Secure, reliable exam monitoring for both test-takers and creators, ensuring fair assessments every time.</p>

@@ -1,12 +1,52 @@
 import {React,useState} from 'react'
 import { GoEye } from "react-icons/go";
 import { FaRegEyeSlash } from "react-icons/fa";
+import toast from "react-hot-toast";
+import {useAuthStore} from "../store/useAuthStore.js"
 
 const SignUpPage = () => {
-  const [showPassword, setShowPassword] = useState(false)
+  const [formData, setFormData] = useState({
+    fullName: "", 
+    email: "",
+    password:"",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {signup} = useAuthStore();
+
+  const validateForm = () => {
+    if (!formData.fullName.trim()) return toast.error("Full name is required");
+    if (!formData.email.trim()) return toast.error("Email is required");
+    if (!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid email format");
+    if (!formData.password) return toast.error("Password is required");
+    if (formData.password.length < 8) return toast.error("Password must be at least 8 characters");
+
+    return true;
+  };
+
+  const handleChange =(e) =>{
+    setFormData(prev => ({...prev,[e.target.name]:e.target.value
+
+    }));
+  };
+
+  const handleSubmit =(e) =>{
+        e.preventDefault();
+        
+        const isValid= validateForm();
+
+        if (isValid){
+          signup(formData);
+        } 
+  };
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-8rem)] animate-fade-in">
+    <div>
+
+    <form 
+       onSubmit={handleSubmit}
+       className="flex justify-center items-center h-[calc(100vh-8rem)] animate-fade-in">
         <div className="border-2 p-6 w-full max-w-md rounded-xl ">
 
           <div className="mb-5 p-2">
@@ -18,36 +58,55 @@ const SignUpPage = () => {
                   <label className="label">
                       <span className="label-text font-medium">Full Name</span>
                   </label>
-                  <input type="text" placeholder="" className="input input-ghost input-lg w-full  border-neutral-700" />
+                  <input 
+                    type="text" 
+                    placeholder="" 
+                    name="fullName"
+                    className="input input-ghost input-lg w-full border-neutral-700"
+                    value={formData.fullName} 
+                    onChange={handleChange}
+                    />
+
+                  <label className="label">
+                        <span className="label-text font-medium">Email</span>
+                  </label>
+                  <input 
+                     type="text" 
+                     name="email"
+                     placeholder="" 
+                     className="input input-ghost input-lg w-full border-2 border-neutral-700" 
+                     value={formData.email}
+                     onChange={handleChange}
+                     />
 
 
 
                   <label className="label">
                         <span className="label-text font-medium">Password</span>
                   </label>
-                  <input type={showPassword ? "text" : "password"} placeholder="" className="input input-ghost input-lg w-full  border-neutral-700" />
-                  <button className="absolute inset-y-0 right-12 top-8 z-10" onClick={()=>setShowPassword(!showPassword)}>
-                    {showPassword ? (
-                    <FaRegEyeSlash />
-                  ):(
-                      <GoEye />
+                  <input 
+                    type={showPassword ? "text" : "password"} 
+                    name="password"
+                    placeholder="" 
+                    className="input input-ghost input-lg w-full  border-neutral-700" 
+                    value={formData.password}
+                    onChange={handleChange}
+                    />
 
+                  <button className="absolute inset-y-0 right-12 top-52 z-10" onClick={()=>setShowPassword(!showPassword)}>
+                    {showPassword ? (<FaRegEyeSlash />):( <GoEye />
                     )}
                   </button>
 
-                  <label className="label">
-                        <span className="label-text font-medium">Email</span>
-                  </label>
-                  <input type="text" placeholder="" className="input input-ghost input-lg w-full border-2 border-neutral-700" />
-
             </div>
-            <div className=" flex justify-center ">
-            <button className="btn btn-neutral hover:animate-fade-in-scale ">SignUp</button>
+                  <div className=" flex justify-center ">
+                  <button type="submit" className="btn btn-neutral hover:animate-fade-in-scale ">SignUp</button>
 
             </div>
             
 
         </div>
+    </form>
     </div>
   )
 }

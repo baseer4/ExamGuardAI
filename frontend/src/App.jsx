@@ -1,5 +1,6 @@
-import {Routes ,Route} from "react-router-dom";
+import {Routes ,Route, Navigate} from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import { useEffect } from "react";
 import "./App.css"
 import AboutPage from "./pages/AboutPage";
 import CreatePage from "./pages/CreatePage";
@@ -8,10 +9,17 @@ import CreateMcqPage from "./pages/CreateMcqPage";
 import CreateAssignmentPage from "./pages/CreateAssignmentPage";
 import CreateCodePage from "./pages/CreateCodePage";
 import JoinPage from "./pages/JoinPage";
-import SignupPage from "./pages/SignupPage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
+import { useAuthStore } from "./store/useAuthStore";
+
 
 function App() {
-  
+  const {authUser,checkAuth} = useAuthStore();
+
+  useEffect(()=>{
+    checkAuth()
+  },[checkAuth]);
 
   return (
     <div>
@@ -21,8 +29,8 @@ function App() {
 
             <Route path="/" element= {<HomePage/>}   />
             <Route path="/about" element= {<AboutPage/>}   />
-            <Route path="/signup" element= {<SignupPage/>} />
-            <Route path="/login" element= {<LoginPage/>} />
+            <Route path="/signup" element= {!authUser ?<SignUpPage/> : <Navigate to="/" />} />
+            <Route path="/login" element= {!authUser ?<LoginPage/> : <Navigate to="/" />} />
 
             <Route path="/create" element= {<CreatePage/>}   />
             <Route path="/create/mcq" element= {<CreateMcqPage/>}   />
