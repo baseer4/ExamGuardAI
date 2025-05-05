@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import { useAuthStore } from '../store/useAuthStore';
 
 const Navbar = () => {
+  const {authUser,logout} = useAuthStore();
   return (
     <header >
        <div className="navbar shadow-sm gap-6 p-5">
@@ -15,9 +17,19 @@ const Navbar = () => {
         </div>
 
         <div className="hidden sm:flex gap-4">
-          <Link to="/signup" className="btn">SignUp</Link>
-          <Link to="/login" className="btn">Login</Link>
-          <Link to="/about" className="btn">About</Link>
+          {!authUser ?(
+            <>
+            <Link to="/signup" className="btn">SignUp</Link>
+            <Link to="/login" className="btn">Login</Link>
+            <Link to="/about" className="btn">About</Link>
+            </>
+          ):(
+            <>
+            <Link to="/about" className="btn">Dashboard</Link>
+            <Link to="/about" className="btn">About</Link>
+            <button onClick={logout} className="btn">Logout</button>
+            </>
+          )}
         </div>
 
         <div className="sm:flex">
@@ -44,9 +56,6 @@ const Navbar = () => {
                   </svg>
                 </label>
         </div>
-
-
-
       </div>
     </header>
      
