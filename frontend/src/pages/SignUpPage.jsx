@@ -42,7 +42,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div>
+    <div className="m-24">
 
     <form 
        onSubmit={handleSubmit}
@@ -93,7 +93,7 @@ const SignUpPage = () => {
                     onChange={handleChange}
                     />
 
-                  <button className="absolute inset-y-0 right-12 top-52 z-10" onClick={()=>setShowPassword(!showPassword)}>
+                  <button type="button" className="absolute inset-y-0 right-12 top-52 z-10" onClick={()=>setShowPassword(!showPassword)}>
                     {showPassword ? (<FaRegEyeSlash />):( <GoEye />
                     )}
                   </button>
