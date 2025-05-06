@@ -42,11 +42,11 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="m-24">
+    <div className="mt-24  animate-fade-in">
 
     <form 
        onSubmit={handleSubmit}
-       className="flex justify-center items-center h-[calc(100vh-8rem)] animate-fade-in">
+       className="flex justify-center items-center min-h-screen[calc(100vh-8rem)]">
         <div className="border-2 p-6 w-full max-w-md rounded-xl ">
 
           <div className="mb-5 p-2">

@@ -22,11 +22,11 @@ const LoginPage = () => {
     login(formData);
   }
   return (
-    <div>
+    <div className="animate-fade-in">
     
         <form 
            onSubmit={handleSubmit}
-           className="flex justify-center items-center h-[calc(100vh-8rem)] animate-fade-in">
+           className="flex justify-center items-center min-h-[calc(100vh-8rem)]">
             <div className="border-2 p-6 w-full max-w-md rounded-xl ">
     
               <div className="mb-5 p-2">
