@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.route.js";
+import examRoutes from "./routes/exam.route.js"
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -15,10 +16,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"http://localhost:5174",
     credentials:true,
 }))
 app.use("/api/auth", authRoutes)
+app.use("/api/create", examRoutes)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on ${PORT}`);
