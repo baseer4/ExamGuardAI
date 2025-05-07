@@ -10,6 +10,17 @@ function CreateAssignmentPage() {
     },
   ]);
 
+  const [testConfig, setTestConfig] = useState({
+    testTitle: "",
+    duration: "",
+  })
+
+
+  const handleConfigChange =(field,value) =>{
+    setTestConfig((prev)=>({
+      ...prev,[field]:value,
+    }));
+  }
   const handleChange = (index, e) => {
     const { name, value } = e.target;
     setFormData((prev) =>
@@ -40,14 +51,18 @@ function CreateAssignmentPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData();
+    
+    const finalTestData = {
+      testTitle: testConfig.testTitle,
+      duration:testConfig.duration,
 
-    formData.forEach((entry, index) => {
-      data.append(`title_${index}`, entry.title);
-      data.append(`question_${index}`, entry.question);
-    });
-
-    console.log("Submitted formData:", formData);
+      questions: formData.map((question) => ({
+        type: question.type,
+        title: question.title,
+        question: question.question,
+      })),
+    };
+    console.log("Final test data:", finalTestData);
   };
 
   return (
@@ -105,27 +120,37 @@ function CreateAssignmentPage() {
           </button>
         </div>
       </form>
-
-      <div className="flex flex-col mt-5 gap-2 mx-[5rem] ">
-        <p className="text-xl font-semibold underline underline-offset-2 ">Configuration:</p>
-        <p>Select Type of Test</p>
-        <select className="select select-md w-sm sm:w-[15vw]">
-          <option value="">Select an option</option>
-          <option value="1">Assignment/Eassy</option>
-        </select>
-        <div>
-          <p>Test duration:</p>
-          <select className="select select-md mt-2 w-sm sm:w-[15vw]">
-          <option value="">Select an option</option>
-          <option value="1">30 min</option>
-          <option value="1">1 hour</option>
-          <option value="1">1:30 hour</option>
-          <option value="1">2:00 hours</option>
-
-        </select>
+      <div className="flex flex-col mt-5 gap-4 mx-[5rem]">
+        <p className="text-xl font-semibold underline underline-offset-2">
+          Configuration:
+        </p>
+      <div className="flex flex-col">
+          <label className="font-semibold">Test Title:</label>
+          <input
+            type="text"
+            value={testConfig.testTitle}
+            onChange={(e) => handleConfigChange("testTitle", e.target.value)}
+            className="input input-bordered w-sm sm:w-[15vw]"
+          />
         </div>
-      </div>
+
+      <div className="flex flex-col">
+          <label className="font-semibold">Test Duration:</label>
+          <select
+            value={testConfig.duration}
+            onChange={(e) => handleConfigChange("duration", e.target.value)}
+            className="select select-md mt-2 w-sm sm:w-[15vw]"
+          >
+            <option value="">Select duration</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="90">1 hour 30 minutes</option>
+            <option value="120">2 hours</option>
+          </select>
+        </div>
     </div>
+    </div>
+
   );
 }
 
