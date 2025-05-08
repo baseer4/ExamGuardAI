@@ -147,6 +147,17 @@ function CreateAssignmentPage() {
             <option value="90">1 hour 30 minutes</option>
             <option value="120">2 hours</option>
           </select>
+
+          <label className="font-semibold mt-4">Test type:</label>
+          <select
+            value={testConfig.type}
+            onChange={(e) => handleConfigChange("type", e.target.value)}
+            className="select select-md mt-2 w-sm sm:w-[15vw]"
+          >
+            <option value="">Select type</option>
+            <option value="Assignment">Assignment</option>
+          </select>
+
         </div>
     </div>
     </div>

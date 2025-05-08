@@ -113,7 +113,7 @@ function CreateCodePage() {
             Add Another Question
           </button>
           <button type="submit" className="btn btn-neutral mb-5">
-            🚀 Submit
+             Submit
           </button>
         </div>
       </form>
@@ -125,8 +125,8 @@ function CreateCodePage() {
           <option value="">Select an option</option>
           <option value="1">Coding problem</option>
         </select>
+
         <div>
-    
           <p>Test duration:</p>
           <select className="select select-md mt-2 w-sm sm:w-[15vw]">
           <option value="">Select an option</option>

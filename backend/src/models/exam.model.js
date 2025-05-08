@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const questionSchema = new mongoose.Schema(
     {
-        title: String,
         question:String,
         options:[String], // MCQ only
         correctAnsIndex:String, //MCQ only

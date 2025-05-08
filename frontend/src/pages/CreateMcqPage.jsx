@@ -1,10 +1,13 @@
 import { React, useState } from "react";
 import { IoAdd } from "react-icons/io5";
+import { useExamStore } from "../store/useExamStore";
+import {useNavigate} from "react-router-dom"
 
 const CreateMcqPage = () => {
+  const navigate =  useNavigate();
+  const {submitTest} = useExamStore();
   const [formData, setFormData] = useState([
     {
-      title: "",
       question: "",
       options: ["", "", "", ""],
       correctAnsIndex: 0,
@@ -14,6 +17,7 @@ const CreateMcqPage = () => {
   const [testConfig, setTestConfig] = useState({
     testTitle: "",
     duration: "",
+    type:"",
   });
 
   const handleConfigChange = (field, value) => {
@@ -41,29 +45,37 @@ const CreateMcqPage = () => {
     setFormData(tempFormData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-
     const finalTestData = {
       testTitle: testConfig.testTitle,
       duration:testConfig.duration,
+      type: testConfig.type,
 
       questions: formData.map((question) => ({
-        type: question.type,
-        title: question.title,
         question: question.question,
         options: question.options,
         correctAnsIndex: question.correctAnsIndex,
       })),
     };
-    console.log("Final test data:", finalTestData);
+    // submitTest(finalTestData)
+    // console.log(finalTestData)
+    // if(submitTest){
+    //   navigate('/generate-link')
+    // }
+    try {
+      await submitTest(finalTestData);
+      navigate('/generate-link')
+
+    } catch (error) {
+      console.log("Error while creating test",error)
+    }
   };
 
   const handleAddQuestion = () => {
     setFormData((prev) => [
       ...prev,
       {
-        title: "",
         question: "",
         options: ["", "", "", ""],
         correctAnsIndex: 0,
@@ -135,7 +147,7 @@ const CreateMcqPage = () => {
                           onChange={(e) =>
                             handleCorrectAnsChange(index, e.target.value)
                           }
-                          className="select select-md select-ghost"
+                          className="select select-md select-ghost mx-2"
                         >
                           {item.options.map((_, i) => (
                             <option key={i} value={i} className="p-4">
@@ -194,6 +206,17 @@ const CreateMcqPage = () => {
             <option value="90">1 hour 30 minutes</option>
             <option value="120">2 hours</option>
           </select>
+          
+          <label className="font-semibold mt-4">Test type:</label>
+          <select
+            value={testConfig.type}
+            onChange={(e) => handleConfigChange("type", e.target.value)}
+            className="select select-md mt-2 w-sm sm:w-[15vw]"
+          >
+            <option value="">Select type</option>
+            <option value="MCQ">MCQ</option>
+          </select>
+
         </div>
       </div>
     </div>

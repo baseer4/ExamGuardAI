@@ -12,6 +12,8 @@ import JoinPage from "./pages/JoinPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuthStore } from "./store/useAuthStore";
+import TakeExamPage from "./pages/TakeExamPage";
+import LinkGenerator from "./pages/GenLinkPage";
 
 
 function App() {
@@ -37,6 +39,10 @@ function App() {
             <Route path="/create/assignment" element= {<CreateAssignmentPage/>}   />
             <Route path="/create/code" element= {<CreateCodePage/>}   />
             <Route path="/join" element ={<JoinPage/>} />
+
+            <Route path="/join/:examId" element= {<TakeExamPage/>} />
+            <Route path="/generate-link" element= {<LinkGenerator/>} />
+
 
           </Route>
 
