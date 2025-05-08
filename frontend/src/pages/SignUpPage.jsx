@@ -3,6 +3,8 @@ import { GoEye } from "react-icons/go";
 import { FaRegEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import {useAuthStore} from "../store/useAuthStore.js"
+import { Link } from "react-router-dom";
+
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -42,7 +44,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="mt-24  animate-fade-in">
+    <div className="mt-24 animate-fade-in">
 
     <form 
        onSubmit={handleSubmit}
@@ -101,9 +103,10 @@ const SignUpPage = () => {
             </div>
                   <div className=" flex justify-center ">
                   <button type="submit" className="btn btn-neutral hover:animate-fade-in-scale ">SignUp</button>
-
             </div>
-            
+            <p className="text-center mt-4">
+              Already have an account? <Link to="/login" className="text-indigo-400 text-shadow-sm hover:underline">Login</Link>
+            </p>
 
         </div>
     </form>

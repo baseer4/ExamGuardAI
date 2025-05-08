@@ -2,6 +2,7 @@ import {React,useState} from 'react'
 import { GoEye } from "react-icons/go";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useAuthStore } from '../store/useAuthStore';
+import { Link } from "react-router-dom";
 
 
 const LoginPage = () => {
@@ -71,6 +72,9 @@ const LoginPage = () => {
                       <div className=" flex justify-center ">
                       <button type="submit" className="btn btn-neutral hover:animate-fade-in-scale ">Login</button>
                 </div>
+                <p className="text-center mt-4">
+                  Don't have an account? <Link to="/signup" className="text-indigo-400 text-shadow-sm hover:underline">Signup</Link>
+                </p>
             </div>
         </form>
    </div>
