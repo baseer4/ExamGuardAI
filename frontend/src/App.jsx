@@ -40,11 +40,11 @@ function App() {
             <Route path="/create/code" element= {<CreateCodePage/>}   />
             <Route path="/join" element ={<JoinPage/>} />
 
-            <Route path="/join/:examId" element= {<TakeExamPage/>} />
             <Route path="/generate-link" element= {<LinkGenerator/>} />
 
 
           </Route>
+            <Route path="/join/:examId" element= {<TakeExamPage/>} />
 
      
       </Routes>  

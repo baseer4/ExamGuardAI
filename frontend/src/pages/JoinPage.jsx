@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom"
 import online_test from "../assets/images/online_test.svg"
 
 const JoinPage = () => {
+  const navigate = useNavigate();
+  const [link, setLink] = useState("");
+
+
+  const join = () => {
+    try {
+      const url = new URL(link);
+      const path = url.pathname;
+      // console.log(path)
+      navigate(path);
+    } catch {
+      alert("Invalid link");
+    }
+  };
+  
   return (
 <div className="flex flex-col min-h-[calc(100vh-10rem)] animate-fade-in">
 
@@ -11,11 +27,17 @@ const JoinPage = () => {
 
           <label className="input input-lg lg:w-96 border-2">
             <span className="label">https://</span>
-            <input type="text" placeholder="URL" className="w-full" />
-          </label>
+            <input
+              type="text"
+              placeholder="URL"
+              className="w-full"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+            />         
+             </label>
 
           <div>
-            <button className="btn btn-neutral btn-md lg:btn-lg">Join</button>
+            <button onClick={join} className="btn btn-neutral btn-md lg:btn-lg">Join</button>
           </div>
 
           <div>
