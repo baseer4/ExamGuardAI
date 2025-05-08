@@ -12,8 +12,11 @@ import JoinPage from "./pages/JoinPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuthStore } from "./store/useAuthStore";
-import TakeExamPage from "./pages/TakeExamPage";
 import LinkGenerator from "./pages/GenLinkPage";
+import InstructionPage from "./pages/InstructionPage";
+import ProtectedRoute from "./layouts/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
+
 
 
 function App() {
@@ -25,6 +28,7 @@ function App() {
 
   return (
     <div>
+      <Toaster/>
 
       <Routes>
           <Route element= {<LayoutWithNavbar/>}>
@@ -33,20 +37,23 @@ function App() {
             <Route path="/about" element= {<AboutPage/>}   />
             <Route path="/signup" element= {!authUser ?<SignUpPage/> : <Navigate to="/" />} />
             <Route path="/login" element= {!authUser ?<LoginPage/> : <Navigate to="/" />} />
-
             <Route path="/create" element= {<CreatePage/>}   />
-            <Route path="/create/mcq" element= {<CreateMcqPage/>}   />
-            <Route path="/create/assignment" element= {<CreateAssignmentPage/>}   />
-            <Route path="/create/code" element= {<CreateCodePage/>}   />
-            <Route path="/join" element ={<JoinPage/>} />
 
-            <Route path="/generate-link" element= {<LinkGenerator/>} />
 
+            <Route element={<ProtectedRoute/>}>
+                <Route path="/create/mcq" element= { <CreateMcqPage/> }   />
+                <Route path="/create/assignment" element= {<CreateAssignmentPage/>}   />
+                <Route path="/create/code" element= {<CreateCodePage/>}   />
+                <Route path="/join" element ={<JoinPage/>} />
+                <Route path="/generate-link" element= {<LinkGenerator/>} />
+            </Route>
 
           </Route>
-            <Route path="/join/:examId" element= {<TakeExamPage/>} />
 
-     
+          <Route element={<ProtectedRoute/>}>
+            <Route path="/join/:id" element= {<InstructionPage/>} />
+          </Route>
+
       </Routes>  
 
     </div>     
