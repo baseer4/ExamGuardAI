@@ -4,7 +4,7 @@ import { protectRoute } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 //
-router.post("/mcq",protectRoute,mcq)
+router.post("/create/mcq",protectRoute,mcq)
 
 router.get("/test/:id",protectRoute, isTestValid)
 

@@ -20,7 +20,7 @@ app.use(cors({
     credentials:true,
 }))
 app.use("/api/auth", authRoutes)
-app.use("/api/create", examRoutes)
+app.use("/api", examRoutes)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on ${PORT}`);
