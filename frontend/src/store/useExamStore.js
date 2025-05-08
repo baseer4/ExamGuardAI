@@ -3,6 +3,9 @@ import { axiosInstance } from "../lib/axios";
 
 export const useExamStore = create((set) => ({
     isTestValid:false,
+    isTestLoading:false,
+    testError:null,
+
     FinalTestData:null,
     isJoinLinkLoading:false,
     joinLink:"",
@@ -12,14 +15,23 @@ export const useExamStore = create((set) => ({
 
 
 
-    checkTest: async() =>{
+    checkTestValid: async(id) =>{
+        set({isTestLoading:true})
         try {
-            await axiosInstance.get("/create/isTestvalid");
+            const res =await axiosInstance.get(`/test/${id}`);
             set({isTestValid:true});
+            return res.data
         } catch (error) {
-            console.log("Error while checking test validity",error.response?.data?.message);
+            if (error.response?.status === 404) {
+                set({ testError: "Test not found :(" });
+              } else if (error.response?.status === 403) {
+                set({ testError: "This test has expired. Please contact your instructor for assistance." });
+            } else {
+                set({ testError: "Unknown error" });
+              }
+              set({ isTestValid: false });
         } finally{
-            set({isTestValid:false})
+            set({isTestLoading:false})
         }
     },
 
