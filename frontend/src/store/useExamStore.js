@@ -6,13 +6,13 @@ export const useExamStore = create((set) => ({
     isTestLoading:false,
     testError:null,
 
+    testQuestions:null,
+    testQuestionsError:null,
+
     FinalTestData:null,
     isJoinLinkLoading:false,
     joinLink:"",
     setJoinLink: (link) => set({joinLink:link}),
-
-
-
 
 
     checkTestValid: async(id) =>{
@@ -38,7 +38,7 @@ export const useExamStore = create((set) => ({
     submitTest: async(data) =>{
         set({isJoinLinkLoading:true})
         try {
-            const res =await axiosInstance.post("/create/mcq",data)
+            const res =await axiosInstance.post("/create/test",data)
             set({
                 FinalTestData:res.data,
                 joinLink:res.data.joinLink
@@ -49,6 +49,19 @@ export const useExamStore = create((set) => ({
             set({isJoinLinkLoading:false})
         }
     },
-   
+
+    fetchTestQuestions: async (id) => {
+  set({ testQuestionsError: null });
+  try {
+    console.log("Fetching test with ID:", id);
+    const res = await axiosInstance.get(`/test/${id}`);
+    console.log("API response data:", res.data);
+    set({ testQuestions: res.data });
+  } catch (error) {
+    console.log("Error fetching test:", error);
+    set({ testQuestionsError: error.message || "Unknown error" });
+  }
+}
+
 }))
 
