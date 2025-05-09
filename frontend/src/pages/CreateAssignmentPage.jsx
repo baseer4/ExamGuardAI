@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { IoTrash } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import { useExamStore } from "../store/useExamStore";
 
 function CreateAssignmentPage() {
+  const navigate =  useNavigate();
+  const {submitTest} = useExamStore();
+
+  
   const [formData, setFormData] = useState([
     {
       title: "",
@@ -13,6 +19,7 @@ function CreateAssignmentPage() {
   const [testConfig, setTestConfig] = useState({
     testTitle: "",
     duration: "",
+    type:"",
   })
 
 
@@ -49,20 +56,26 @@ function CreateAssignmentPage() {
     setFormData((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     
     const finalTestData = {
       testTitle: testConfig.testTitle,
       duration:testConfig.duration,
+      type: testConfig.type,
 
       questions: formData.map((question) => ({
-        type: question.type,
         title: question.title,
         question: question.question,
       })),
     };
-    console.log("Final test data:", finalTestData);
+     try {
+      await submitTest(finalTestData);
+      navigate('/generate-link')
+
+    } catch (error) {
+      console.log("Error while creating test",error)
+    }
   };
 
   return (
