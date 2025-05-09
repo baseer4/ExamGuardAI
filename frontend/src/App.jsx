@@ -16,6 +16,7 @@ import LinkGenerator from "./pages/GenLinkPage";
 import InstructionPage from "./pages/InstructionPage";
 import ProtectedRoute from "./layouts/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
+import ExamEnvPage from "./pages/ExamEnvPage";
 
 
 
@@ -52,6 +53,8 @@ function App() {
 
           <Route element={<ProtectedRoute/>}>
             <Route path="/join/:id" element= {<InstructionPage/>} />
+            <Route path="/test/:id" element= {<ExamEnvPage/>} />
+
           </Route>
 
       </Routes>  

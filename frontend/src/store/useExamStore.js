@@ -18,7 +18,7 @@ export const useExamStore = create((set) => ({
     checkTestValid: async(id) =>{
         set({isTestLoading:true})
         try {
-            const res =await axiosInstance.get(`/test/${id}`);
+            const res =await axiosInstance.get(`/join/${id}`);
             set({isTestValid:true});
             return res.data
         } catch (error) {

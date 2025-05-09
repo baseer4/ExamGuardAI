@@ -6,6 +6,6 @@ const router = express.Router();
 //
 router.post("/create/mcq",protectRoute,mcq)
 
-router.get("/test/:id",protectRoute, isTestValid)
+router.get("/join/:id",protectRoute, isTestValid)
 
 export default router;
