@@ -1,7 +1,7 @@
 import Exam from "../models/exam.model.js"
 import User from "../models/users.model.js";
 
-export const mcq =async (req,res) => {
+export const test =async (req,res) => {
     try {
         const creatorId = req.user._id;
         const {testTitle,type,duration,questions} =req.body;
@@ -53,3 +53,19 @@ export const isTestValid = async(req,res)=>{
         res.status(500).json({message:"server error"});
    }
 };
+
+export const getTestQuestions = async(req,res) =>{
+    try {
+        const {id} =req.params;
+        const test = await Exam.findById(id);
+
+        if(!test){
+            return res.status(404).json({message:"test not found"})
+        }
+
+        res.status(200).json(test)
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
