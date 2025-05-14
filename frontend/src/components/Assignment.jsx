@@ -3,6 +3,7 @@ import { FiClock } from 'react-icons/fi';
 import { useExamStore } from '../store/useExamStore';
 import { useParams } from 'react-router-dom';
 import formatTime from '../lib/formatTime';
+import EndButton from './EndButton';
 
 export default function Assignment() {
   const { id } = useParams();
@@ -52,15 +53,21 @@ export default function Assignment() {
   return (
     <div className="flex flex-col h-screen w-full bg-gray-50">
       <header className="bg-white shadow-md p-4 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-800">{testQuestions.testTitle}</h1>
-          <div className="flex items-center gap-2 text-red-500 font-medium">
-            <FiClock className="w-5 h-5" />
-            <span>{formatTime(timeLeft || 0)}</span>
-          </div>
-        </div>
-        <p className="text-sm text-gray-600 max-w-4xl mx-auto mt-1">Type: {testQuestions.type}</p>
-      </header>
+  <div className="max-w-4xl mx-auto flex justify-between items-center">
+    <h1 className="text-xl font-bold text-gray-800">{testQuestions.testTitle}</h1>
+
+    <div className="flex gap-4">
+      <div className="flex items-center gap-2 text-red-500 font-medium">
+        <FiClock className="w-5 h-5" />
+        <span>{formatTime(timeLeft || 0)}</span>
+      </div>
+      <EndButton onClick={handleSubmit} />
+    </div>
+  </div>
+
+  <p className="text-sm text-gray-600 max-w-4xl mx-auto mt-1">Type: {testQuestions.type}</p>
+</header>
+
 
       <main className="flex-1 overflow-y-auto px-4">
         <div className="max-w-4xl mx-auto py-6">

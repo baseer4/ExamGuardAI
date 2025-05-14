@@ -3,6 +3,7 @@ import { FiClock } from 'react-icons/fi';
 import { useExamStore } from '../store/useExamStore';
 import { useParams } from 'react-router-dom';
 import formatTime from '../lib/formatTime';
+import EndButton from './EndButton';
 
 export default function Mcq() {
   const { id } = useParams();
@@ -77,6 +78,7 @@ export default function Mcq() {
             <FiClock className="text-blue-600 w-4 h-4" />
             <span className="font-mono font-medium text-blue-600">{formatTime(timeLeft)}</span>
           </div>
+         <EndButton onClick={handleSubmit} />
         </div>
       </header>
 
