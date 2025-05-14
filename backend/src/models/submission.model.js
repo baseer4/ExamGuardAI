@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
 
+const answerSchema = new mongoose.Schema({
+    questionId:mongoose.Schema.Types.ObjectId,
+    type:{
+        type:"String",
+        enum:["MCQ","Assignment"],
+        required:true,
+    },
+    selectedIndex:Number,
+    writtenAnswer:String,
+});
 
 const submissionScehma = new mongoose.Schema(
     {
@@ -18,16 +28,6 @@ const submissionScehma = new mongoose.Schema(
     {timestamps:true}
 );
 
-const answerSchema = new mongoose.Schema({
-    questionId:mongoose.Schema.Types.ObjectId,
-    type:{
-        type:"String",
-        enum:["MCQ","Assignment"],
-        required:true,
-    },
-    selectedIndex:Number,
-    writtenAnswer:String,
-});
 
 const Submission = mongoose.model("submission",submissionScehma);
 export default Submission;
