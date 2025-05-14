@@ -51,17 +51,15 @@ export const useExamStore = create((set) => ({
     },
 
     fetchTestQuestions: async (id) => {
-  set({ testQuestionsError: null });
-  try {
-    console.log("Fetching test with ID:", id);
-    const res = await axiosInstance.get(`/test/${id}`);
-    console.log("API response data:", res.data);
-    set({ testQuestions: res.data });
-  } catch (error) {
-    console.log("Error fetching test:", error);
-    set({ testQuestionsError: error.message || "Unknown error" });
-  }
-}
+        set({ testQuestionsError: null });
+        try {
+            const res = await axiosInstance.get(`/test/${id}`);
+            set({ testQuestions: res.data });
+        } catch (error) {
+            console.log("Error fetching test:", error);
+            set({ testQuestionsError: error.message || "Unknown error" });
+        }
+    },
 
 }))
 
