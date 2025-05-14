@@ -2,10 +2,18 @@ import React, { useState, useEffect } from "react";
 import Assignment from "../components/Assignment";
 import Mcq from "../components/Mcq";
 import { useExamStore } from "../store/useExamStore";
+import { useParams } from "react-router-dom";
 
 const ExamEnvPage = () => {
+  const {id} = useParams()
   const [started, setStarted] = useState(false);
-  const {testQuestions} = useExamStore();
+  const {fetchTestQuestions,testQuestions} = useExamStore();
+
+   useEffect(() => {
+    if (id) {
+      fetchTestQuestions(id);
+    }
+  }, [id, fetchTestQuestions]);
 
   const handleStartExam = async () => {
     const elem = document.documentElement;
@@ -38,11 +46,11 @@ const ExamEnvPage = () => {
     };
   }, [started]);
 
-  const renderWhichComponent = () =>{
-    if(testQuestions.type === "Assignment") return <Assignment/>;
-    if (testQuestions.type === "MCQ") return <Mcq/>;
-    return null;
-  }
+  // const renderWhichComponent = (testQuestions) =>{
+  //   if(testQuestions.type === "Assignment") return <Assignment/>;
+  //   if (testQuestions.type === "MCQ") return <Mcq/>;
+  //   console.log(testQuestions)
+  // }
 
   return (
     <div className="relative min-h-screen bg-gray-100">
@@ -62,7 +70,14 @@ const ExamEnvPage = () => {
       )}
 
       {/* ref renderWhichComponent */}
-      {started && renderWhichComponent()}
+{started &&  (
+  testQuestions.type === "Assignment" ? (
+    <Assignment />
+  ) : testQuestions.type === "MCQ" ? (
+    <Mcq />
+  ) : null
+)}
+
     </div>
   );
 };
