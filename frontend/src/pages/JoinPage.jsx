@@ -37,7 +37,7 @@ const JoinPage = () => {
              </label>
 
           <div>
-            <button onClick={join} className="btn btn-neutral btn-md lg:btn-lg">Join</button>
+            <button onClick={join} className="btn btn-neutral btn-md lg:btn-lg hover:animate-fade-in-scale">Join</button>
           </div>
 
           <div>
