@@ -26,6 +26,7 @@ const Navbar = () => {
           ):(
             <>
             <Link to="/about" className="btn">Dashboard</Link>
+            <Link to="/profile" className="btn">Profile</Link>
             <Link to="/about" className="btn">About</Link>
             <button onClick={logout} className="btn">Logout</button>
             </>

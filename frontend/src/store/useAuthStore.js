@@ -8,6 +8,8 @@ export const useAuthStore = create((set) => ({
     isSigningUp:false,
     isCheckingAuth:true,
     isLoggingIn:false,
+    isViewingProfile:false,
+    profileData:{},
 
 
     checkAuth: async()=>{
@@ -55,5 +57,18 @@ export const useAuthStore = create((set) => ({
         } finally{
             set({isLoggingIn:false});
         }
+    },
+    profile: async() =>{
+        set({isViewingProfile:true})
+        try {
+            const res = await axiosInstance.get("/auth/profile");
+            set({profileData:res.data})
+        } catch (error) {
+            toast.error("Can't retrieve profile right now try again later",error)
+            console.log("Error while checking Profile",error);
+        } finally{
+            set({isViewingProfile:false})
+        }
+
     }
 }));
