@@ -4,6 +4,7 @@ import { useExamStore } from '../store/useExamStore';
 import { useParams } from 'react-router-dom';
 import formatTime from '../lib/formatTime';
 import EndButton from './EndButton';
+import { useSubmitStore } from '../store/useSubmitStore';
 
 export default function Assignment() {
   const { id } = useParams();
@@ -11,6 +12,8 @@ export default function Assignment() {
 
   const [timeLeft, setTimeLeft] = useState(null);
   const [answers, setAnswers] = useState({});
+
+  const {submitAssignment} = useSubmitStore();
 
   useEffect(() => {
     if (id) fetchTestQuestions(id);
@@ -23,7 +26,9 @@ export default function Assignment() {
   }, [testQuestions]);
 
   useEffect(() => {
-    if (timeLeft === null || timeLeft <= 0) return;
+    if (timeLeft === null || timeLeft === 0) {
+      handleSubmit();
+    };
 
     const interval = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
@@ -38,8 +43,20 @@ export default function Assignment() {
   };
 
   const handleSubmit = () => {
-    console.log("Submitted Answers:", answers);
-    alert("Assignment submitted!");
+    const formattedAnswers= testQuestions.questions.map((q,index) =>({
+      questionId:q._id,
+      type:"Assignment",
+      writtenAnswer:answers[index] || "" 
+    }));
+
+    const payload = {
+      testId:testQuestions._id,
+      answers:formattedAnswers
+    }
+
+    submitAssignment(payload)
+    // console.log("Submitted Answers:", answers);
+    // alert("Assignment submitted!");
   };
 
   if (testQuestionsError) {
