@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.route.js";
 import examRoutes from "./routes/exam.route.js"
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import submitRoutes from "./routes/submit.route.js"
 
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cors({
 }))
 app.use("/api/auth", authRoutes)
 app.use("/api", examRoutes)
+app.use("/api", submitRoutes)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on ${PORT}`);

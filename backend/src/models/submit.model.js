@@ -2,16 +2,16 @@ import mongoose from "mongoose";
 
 const answerSchema = new mongoose.Schema({
     questionId:mongoose.Schema.Types.ObjectId,
-    type:{
-        type:"String",
-        enum:["MCQ","Assignment"],
-        required:true,
-    },
+    // type:{
+    //     type:String,
+    //     enum:["MCQ","Assignment"],
+    //     required:true,
+    // },
     selectedIndex:Number,
     writtenAnswer:String,
 });
 
-const submissionScehma = new mongoose.Schema(
+const submitSchema = new mongoose.Schema(
     {
         testId:{
             type:mongoose.Schema.Types.ObjectId,
@@ -29,5 +29,5 @@ const submissionScehma = new mongoose.Schema(
 );
 
 
-const Submission = mongoose.model("submission",submissionScehma);
-export default Submission;
+const Submit = mongoose.model("submit",submitSchema);
+export default Submit;
