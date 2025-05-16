@@ -18,6 +18,7 @@ import ProtectedRoute from "./layouts/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import ExamEnvPage from "./pages/ExamEnvPage";
 import ProfilePage from "./pages/ProfilePage";
+import SubmissionSuccessPage from "./pages/SubmissionSuccessPage";
 
 
 
@@ -57,6 +58,7 @@ function App() {
           <Route element={<ProtectedRoute/>}>
             <Route path="/join/:id" element= {<InstructionPage/>} />
             <Route path="/test/:id" element= {<ExamEnvPage/>} />
+            <Route path="/submitsuccess" element= {<SubmissionSuccessPage/>} />
           </Route>
 
       </Routes>  

@@ -5,8 +5,11 @@ import { useParams } from 'react-router-dom';
 import formatTime from '../lib/formatTime';
 import EndButton from './EndButton';
 import { useSubmitStore } from '../store/useSubmitStore';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Assignment() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { fetchTestQuestions, testQuestions, testQuestionsError } = useExamStore();
 
@@ -53,7 +56,7 @@ export default function Assignment() {
     setAnswers((prev) => ({ ...prev, [index]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     const formattedAnswers= testQuestions.questions.map((q,index) =>({
       questionId:q._id,
       type:"Assignment",
@@ -64,12 +67,17 @@ export default function Assignment() {
       testId:testQuestions._id,
       answers:formattedAnswers
     }
-
-    submitAssignment(payload)
     // console.log("Submitted Answers:", answers);
     // alert("Assignment submitted!");
-  };
 
+    try {
+      await submitAssignment(payload)
+      navigate('/submitsuccess')
+    } catch (error) {
+        console.log(error)
+    }
+  };
+    
   if (testQuestionsError) {
     return <div className="p-4 text-red-500">Error: {testQuestionsError}</div>;
   }

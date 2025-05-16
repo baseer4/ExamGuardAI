@@ -26,6 +26,8 @@ export const useExamStore = create((set) => ({
                 set({ testError: "Test not found :(" });
               } else if (error.response?.status === 403) {
                 set({ testError: "This test has expired. Please contact your instructor for assistance." });
+            } else if (error.response?.status === 400) {
+                set({ testError: "You have already submitted this test. If you believe this is a mistake, please contact your instructor." });
             } else {
                 set({ testError: "Unknown error" });
               }
