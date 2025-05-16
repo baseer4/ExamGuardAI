@@ -1,5 +1,6 @@
 import Exam from "../models/exam.model.js"
 import User from "../models/users.model.js";
+import Submit from "../models/submit.model.js"
 
 export const test =async (req,res) => {
     try {
@@ -33,25 +34,36 @@ export const test =async (req,res) => {
     }
 }  
 
-export const isTestValid = async(req,res)=>{
-   try {
-    const {id}  = req.params;
+export const isTestValid = async (req, res) => {
+  try {
+    const testId = req.params.id;
+    const userId = req.user.id;
 
-    const test = await Exam.findById(id);
-    if(!test) {
-        return res.status(404).json({message: "test not found"});
+    const existingSubmission = await Submit.findOne({
+      userId: userId.toString(),
+      testId: testId.toString(),
+
+    });
+
+    if (existingSubmission) {
+      return res.status(400).json({ message: "You have already submitted this test." });
     }
 
-    const expiresAt = new Date(test.createdAt.getTime()+test.duration * 60 *1000);
-    if(new Date() > expiresAt) {
-        return res.status(403).json({message:"Times up! the created has been expired :("});
-    }  
+    const test = await Exam.findById(testId);
+    if (!test) {
+      return res.status(404).json({ message: "Oops! We couldn’t find that test. Make sure you have the correct link. :(" });
+    }
+
+    const expiresAt = new Date(test.createdAt.getTime() + test.duration * 60 * 1000);
+    if (new Date() > expiresAt) {
+      return res.status(403).json({ message: "Time's up! The test has expired." });
+    }
 
     res.status(200).json(test);
-   } catch (error) {
-        console.log(error);
-        res.status(500).json({message:"server error"});
-   }
+  } catch (error) {
+    console.error("Validation error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
 export const getTestQuestions = async(req,res) =>{
