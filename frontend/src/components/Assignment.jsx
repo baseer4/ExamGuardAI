@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useRef  } from 'react';
 import { FiClock } from 'react-icons/fi';
 import { useExamStore } from '../store/useExamStore';
 import { useParams } from 'react-router-dom';
@@ -14,28 +14,39 @@ export default function Assignment() {
   const [answers, setAnswers] = useState({});
 
   const {submitAssignment} = useSubmitStore();
+  const hasSubmittedRef = useRef(false);
+
+  const [examStarted, setExamStarted] = useState(false);
+
+
 
   useEffect(() => {
     if (id) fetchTestQuestions(id);
   }, [id]);
 
   useEffect(() => {
-    if (testQuestions?.duration) {
-      setTimeLeft(testQuestions.duration * 60);
-    }
-  }, [testQuestions]);
+  if (testQuestions?.duration) {
+    setTimeLeft(testQuestions.duration * 60);
+    setExamStarted(true); // BUGFIX for starting exam only after timer is set
+  }
+}, [testQuestions]);
+
 
   useEffect(() => {
-    if (timeLeft === null || timeLeft === 0) {
-      handleSubmit();
-    };
+  if (!examStarted) return;
+    //useref to fix auto submission
+  if (timeLeft === 0 && !hasSubmittedRef.current) {
+    hasSubmittedRef.current = true;
+    handleSubmit();
+  }
 
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+  const interval = setInterval(() => {
+    setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+  }, 1000);
 
-    return () => clearInterval(interval);
-  }, [timeLeft]);
+  return () => clearInterval(interval);
+}, [timeLeft, examStarted]);
+
 
   
   const handleChange = (index, value) => {

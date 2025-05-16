@@ -9,7 +9,10 @@ export const submitAssignment = async (req, res) => {
       return res.status(400).json({ message: "Missing or invalid fields" });
     }
 
-    const existingSubmission = await Submit.findOne({ testId, userId });
+    const existingSubmission = await Submit.findOne({
+      testId: testId.toString(),
+      userId: userId.toString(),
+    });
     if (existingSubmission) {
       return res.status(400).json({ message: "You have already submitted this test." });
     }
