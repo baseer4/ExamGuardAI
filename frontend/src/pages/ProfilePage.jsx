@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useAuthStore } from '../store/useAuthStore';
 import ProfilePageSkeleton from "../components/skeleton/ProfilePageSkeleton"
+import formatDate from '../lib/formatDate';
 const ProfilePage = () => {
   const {profile,profileData,isViewingProfile} = useAuthStore();
   useEffect(() => {
@@ -46,7 +47,7 @@ const ProfilePage = () => {
 
           <div className="flex flex-col">
             <span className="text-base-content/60">Account Created</span>
-            <span className="font-medium text-base-content">{profileData.createdAt || 'N/A'}</span>
+            <span className="font-medium text-base-content">{formatDate(profileData.createdAt) || 'N/A'}</span>
           </div>
         </div>
       </div>
