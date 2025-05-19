@@ -19,6 +19,7 @@ import { Toaster } from "react-hot-toast";
 import ExamEnvPage from "./pages/ExamEnvPage";
 import ProfilePage from "./pages/ProfilePage";
 import SubmissionSuccessPage from "./pages/SubmissionSuccessPage";
+import PageNotFound from "./pages/PageNotFound";
 
 
 
@@ -42,6 +43,7 @@ function App() {
               <Route path="/signup" element= {!authUser ?<SignUpPage/> : <Navigate to="/" />} />
               <Route path="/login" element= {!authUser ?<LoginPage/> : <Navigate to="/" />} />
               <Route path="/create" element= {<CreatePage/>}   />
+              <Route path="*" element={<PageNotFound />} />
 
 
               <Route element={<ProtectedRoute/>}>
