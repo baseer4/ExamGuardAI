@@ -10,6 +10,10 @@ export default function SubmissionSuccessPage() {
     navigate("/dashboard");
   };
 
+   const handleHome = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -35,8 +39,11 @@ export default function SubmissionSuccessPage() {
           </p>
         </div>
 
-        <div className="flex justify-center pt-4">
-          <button className="btn btn-primary btn-wide" onClick={handleDashboard}>
+        <div className="flex justify-center pt-4 gap-5">
+          <button className="btn btn-lg" onClick={handleHome}>
+           Home
+          </button>
+          <button className="btn btn-success btn-outline btn-lg" onClick={handleDashboard}>
             Go to Dashboard
           </button>
         </div>
