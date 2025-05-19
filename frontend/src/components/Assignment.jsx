@@ -59,7 +59,7 @@ export default function Assignment() {
   const handleSubmit = async() => {
     const formattedAnswers= testQuestions.questions.map((q,index) =>({
       questionId:q._id,
-      type:"Assignment",
+      // type:"Assignment",
       writtenAnswer:answers[index] || "" 
     }));
 
