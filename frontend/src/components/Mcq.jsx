@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import { FiClock } from 'react-icons/fi';
 import { useExamStore } from '../store/useExamStore';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSubmitStore } from '../store/useSubmitStore';
 import formatTime from '../lib/formatTime';
 import EndButton from './EndButton';
 
 export default function Mcq() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { fetchTestQuestions, testQuestions, testQuestionsError } = useExamStore();
+  const { submitAssignment } = useSubmitStore();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [timeLeft, setTimeLeft] = useState(null);
+  const [examStarted, setExamStarted] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -22,21 +27,29 @@ export default function Mcq() {
   useEffect(() => {
     if (testQuestions && testQuestions.duration) {
       setTimeLeft(testQuestions.duration * 60);
+      setExamStarted(true);
     }
   }, [testQuestions]);
 
   useEffect(() => {
-    if (timeLeft === null || timeLeft <= 0) return;
-    const timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
-    return () => clearInterval(timer);
-  }, [timeLeft]);
+    if (!examStarted || hasSubmitted || timeLeft === null) return;
 
-  
+    if (timeLeft === 0) {
+      handleSubmit();
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft, examStarted, hasSubmitted]);
 
   const handleOptionSelect = (optionIndex) => {
     setAnswers((prev) => ({
       ...prev,
-      [currentQuestion]: optionIndex
+      [currentQuestion]: optionIndex,
     }));
   };
 
@@ -52,9 +65,24 @@ export default function Mcq() {
     }
   };
 
-  const handleSubmit = () => {
-    alert('Test submitted!');
-    console.log('Submitted answers:', answers);
+  const handleSubmit = async () => {
+    const formattedAnswers = testQuestions.questions.map((q, index) => ({
+      questionId: q._id,
+      selectedIndex: answers[index] ?? null,
+    }));
+
+    const payload = {
+      testId: testQuestions._id,
+      answers: formattedAnswers,
+    };
+
+    try {
+      await submitAssignment(payload);
+      setHasSubmitted(true); 
+      navigate('/submitsuccess');
+    } catch (error) {
+      console.error("Submission failed", error);
+    }
   };
 
   if (!testQuestions) {
@@ -70,22 +98,21 @@ export default function Mcq() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
       <header className="bg-white shadow-sm p-4 border-b">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <h1 className="text-xl font-bold text-gray-800">{testQuestions.testTitle}</h1>
           <div className="flex items-center gap-2 bg-blue-50 px-3 py-1 rounded-md">
             <FiClock className="text-blue-600 w-4 h-4" />
-            <span className="font-mono font-medium text-blue-600">{formatTime(timeLeft)}</span>
+            <span className="font-mono font-medium text-blue-600">
+              {formatTime(timeLeft || 0)}
+            </span>
           </div>
-         <EndButton onClick={handleSubmit} />
+          <EndButton onClick={handleSubmit} />
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="flex-1 p-4">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-          {/* Question Navigation */}
           <div className="mb-6 flex flex-wrap gap-2">
             {testQuestions.questions.map((_, index) => (
               <button
@@ -104,11 +131,8 @@ export default function Mcq() {
             ))}
           </div>
 
-          {/* Question */}
           <div className="mb-8">
             <p className="text-gray-700 mb-6 font-semibold text-lg">{questionData.question}</p>
-
-            {/* Options */}
             <div className="space-y-3">
               {questionData.options.map((option, index) => (
                 <div
@@ -139,7 +163,6 @@ export default function Mcq() {
             </div>
           </div>
 
-          {/* Navigation Buttons */}
           <div className="flex justify-between mt-8">
             <button
               onClick={handlePrev}
