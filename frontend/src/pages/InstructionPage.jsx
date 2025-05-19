@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useExamStore } from "../store/useExamStore";
+import PermissionsRequest from "../components/PermissionsRequest";
 
 const InstructionPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const {isTestValid,isTestLoading,testError,checkTestValid} = useExamStore();
+  const { isTestValid, isTestLoading, testError, checkTestValid } = useExamStore();
+  const [permissionsGranted, setPermissionsGranted] = useState(false);
 
   useEffect(() => {
     const validate = async () => {
       const data = await checkTestValid(id);
       if (!data) {
         setTimeout(() => {
-          navigate("/"); 
+          navigate("/");
         }, 5000);
       }
     };
@@ -40,14 +41,11 @@ const InstructionPage = () => {
   return (
     <div className="min-h-screen bg-base-200 py-12 px-4 animate-fade-in">
       <div className="max-w-2xl mx-auto bg-base-100 rounded-lg shadow-lg">
-        {/* Header */}
         <div className="bg-primary text-indigo-400 p-6 rounded-t-lg">
           <h1 className="text-2xl font-bold">Exam Instructions</h1>
         </div>
-        
-        {/* Content */}
+
         <div className="p-8">
-          {/* Important Guidelines */}
           <section className="mb-8">
             <h2 className="text-lg font-semibold mb-4 text-primary">Important Guidelines</h2>
             <ul className="space-y-3">
@@ -59,8 +57,6 @@ const InstructionPage = () => {
             </ul>
           </section>
 
-          
-          {/* Technical Requirements */}
           <section className="mb-8">
             <h2 className="text-lg font-semibold mb-3">Technical Requirements</h2>
             <div className="p-4 border border-base-300 rounded-md">
@@ -73,20 +69,22 @@ const InstructionPage = () => {
               </ul>
             </div>
           </section>
-          
-          
-          
-          {/* Start Button */}
-          <div className="flex justify-center">
+
+          <section className="mb-8 px-6">
+            <PermissionsRequest onPermissionsGranted={setPermissionsGranted} />
+          </section>
+
+          <div className="flex justify-center px-6">
             <button
               className="btn w-full md:w-48 text-indigo-400 text-lg animate-fade-in-scale"
               onClick={() => navigate(`/test/${id}`)}
+              disabled={!permissionsGranted}
+              title={!permissionsGranted ? "Enable mic and camera permissions first" : ""}
             >
               Start Exam
             </button>
           </div>
-          
-          {/* Help */}
+
           <div className="text-center mt-6 text-sm text-base-content/70">
             <p>Technical issues? Contact support</p>
           </div>
@@ -95,6 +93,5 @@ const InstructionPage = () => {
     </div>
   );
 };
-
 
 export default InstructionPage;
