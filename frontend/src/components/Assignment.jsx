@@ -6,6 +6,7 @@ import formatTime from '../lib/formatTime';
 import EndButton from './EndButton';
 import { useSubmitStore } from '../store/useSubmitStore';
 import { useNavigate } from 'react-router-dom';
+import VideoFeed from './VideoCanvas';
 
 
 export default function Assignment() {
@@ -125,6 +126,12 @@ export default function Assignment() {
           )}
         </div>
       </main>
+
+      <div
+        className="fixed bottom-4 right-4 w-sm h-md rounded-lg overflow-hidden shadow-lg border border-gray-300 z-50 bg-black"
+      >
+        <VideoFeed />
+      </div>
 
       {/* Footer */}
       <footer className="bg-white shadow-md p-4 sticky bottom-0 z-10">

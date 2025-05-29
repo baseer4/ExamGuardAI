@@ -162,6 +162,11 @@ export default function Mcq() {
               ))}
             </div>
           </div>
+            <div
+              className="fixed bottom-4 right-4 w-sm h-md rounded-lg overflow-hidden shadow-lg border border-gray-300 z-50 bg-black"
+            >
+              <VideoFeed />
+            </div>
 
           <div className="flex justify-between mt-8">
             <button
