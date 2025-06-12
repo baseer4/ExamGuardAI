@@ -20,6 +20,7 @@ import ExamEnvPage from "./pages/ExamEnvPage";
 import ProfilePage from "./pages/ProfilePage";
 import SubmissionSuccessPage from "./pages/SubmissionSuccessPage";
 import PageNotFound from "./pages/PageNotFound";
+import Dashboard from "./pages/Dashboard";
 
 
 
@@ -53,6 +54,7 @@ function App() {
                   <Route path="/create/code" element= {<CreateCodePage/>}   />
                   <Route path="/join" element ={<JoinPage/>} />
                   <Route path="/generate-link" element= {<LinkGenerator/>} />
+                  <Route path="/dashboard" element ={<Dashboard/>} />
               </Route>
 
           </Route>
