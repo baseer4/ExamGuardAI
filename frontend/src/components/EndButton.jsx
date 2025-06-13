@@ -1,8 +1,8 @@
 import { MdExitToApp } from 'react-icons/md';
 
-const EndButton = () => {
+const EndButton = ({onClick}) => {
   return (
-    <button
+    <button onClick={onClick}
       className="btn btn-error flex items-center gap-2">
       <MdExitToApp className="text-xl" />
       End Exam
