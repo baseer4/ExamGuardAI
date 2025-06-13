@@ -6,7 +6,7 @@ import formatTime from '../lib/formatTime';
 import EndButton from './EndButton';
 import { useSubmitStore } from '../store/useSubmitStore';
 import { useNavigate } from 'react-router-dom';
-import VideoFeed from './VideoCanvas';
+import FaceMeshDetector from './FaceMeshDetector';
 
 
 export default function Assignment() {
@@ -127,11 +127,25 @@ export default function Assignment() {
         </div>
       </main>
 
-      <div
-        className="fixed bottom-4 right-4 w-sm h-md rounded-lg overflow-hidden shadow-lg border border-gray-300 z-50 bg-black"
-      >
-        <VideoFeed />
-      </div>
+
+          <div
+            style={{
+              position: "fixed",
+              bottom: 16,
+              right: 16,
+              width: 320,
+              height: 240,
+              borderRadius: 8,
+              overflow: "hidden",
+              boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+              border: "1px solid #ccc",
+              backgroundColor: "black",
+              zIndex: 50,
+            }}
+          >
+            <FaceMeshDetector />
+          </div>
+
 
       {/* Footer */}
       <footer className="bg-white shadow-md p-4 sticky bottom-0 z-10">
