@@ -63,7 +63,7 @@ export const isTestValid = async (req, res) => {
         userId,
         testId,
         status: "attempting",
-        answers: [], // initially empty
+        answers: [], 
       });
       await attempt.save();
     }

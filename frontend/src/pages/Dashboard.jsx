@@ -5,12 +5,16 @@ import { useEffect } from 'react';
 const Dashboard = () => {
   const {dashdata,fetchDash} = useDashboardStore();
 
-   useEffect(() => {
-    console.log("Calling fetchDash");
+  useEffect(() => {
     fetchDash();
+
+    const interval = setInterval(() => {
+      fetchDash(); 
+    }, 5000);
+    console.log('hi')
+    return () => clearInterval(interval); // clean up
   }, []);
 
-  console.log(dashdata)
 const createdTests = dashdata || []; 
    const testResults =  [];
 
@@ -124,7 +128,6 @@ const createdTests = dashdata || [];
         </>
       )}
 
-      {/* My Results Section */}
       {activeTab === 'results' && (
         <>
           {testResults.length === 0 ? (
