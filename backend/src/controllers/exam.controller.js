@@ -45,9 +45,9 @@ export const isTestValid = async (req, res) => {
 
     });
 
-    if (existingSubmission) {
-      return res.status(400).json({ message: "You have already submitted this test." });
-    }
+    if (existingSubmission && existingSubmission.status === "completed") {
+  return res.status(400).json({ message: "You have already submitted this test." });
+}
 
     const test = await Exam.findById(testId);
     if (!test) {
@@ -57,6 +57,15 @@ export const isTestValid = async (req, res) => {
     const expiresAt = new Date(test.createdAt.getTime() + test.duration * 60 * 1000);
     if (new Date() > expiresAt) {
       return res.status(403).json({ message: "Time's up! The test has expired." });
+    }
+    if (!existingSubmission) {
+      const attempt = new Submit({
+        userId,
+        testId,
+        status: "attempting",
+        answers: [], // initially empty
+      });
+      await attempt.save();
     }
 
     res.status(200).json(test);

@@ -23,6 +23,11 @@ const submitSchema = new mongoose.Schema(
             ref:"user",
             required:true,
         },
+        status: {
+            type: String,
+            enum: ["attempting", "completed"],
+            default: "attempting"
+        },
         answers:[answerSchema],
     },
     {timestamps:true}
