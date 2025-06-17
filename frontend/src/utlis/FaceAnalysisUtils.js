@@ -5,17 +5,27 @@ export function isFacePresent(landmarks) {
 export function getEyeDirection(landmarks) {
   if (!landmarks || landmarks.length < 478) return "No face";
 
-  const leftIris = landmarks[473]; // Iris center
-  const leftInner = landmarks[362];
-  const leftOuter = landmarks[263];
+  const leftIris = landmarks[473]; // center of left iris
+  const leftInner = landmarks[362]; // inner corner
+  const leftOuter = landmarks[263]; // outer corner
+  const topLid = landmarks[386];    // upper lid
+  const bottomLid = landmarks[374]; // lower lid
+  const eyeWidth = Math.abs(leftOuter.x - leftInner.x);
+  const eyeHeight = Math.abs(topLid.y - bottomLid.y);
 
-  const dx = leftOuter.x - leftInner.x;
-  const irisDx = leftIris.x - leftInner.x;
-  const ratio = irisDx / dx;
 
-  if (ratio < 0.35) return "Looking left";
-  if (ratio > 0.65) return "Looking right";
-  return "Looking center";
+const horizRatio = (leftIris.x - leftInner.x) / eyeWidth;
+const vertRatio = (leftIris.y - topLid.y) / eyeHeight;
+
+
+console.log("Horiz Ratio:", horizRatio.toFixed(3), "Vert Ratio:", vertRatio.toFixed(3));
+
+  if (vertRatio < 0.200) return "Looking down";
+  if (vertRatio < 0.300 ) return "Looking up";
+  if (horizRatio > 0.620) return "Looking left";
+  if (horizRatio < 0.415) return "Looking right";
+  if (horizRatio > 0.430 && horizRatio <580 ) return "Looking center";
+
 }
 export function getHeadPoseDirection(landmarks) {
   if (!landmarks || landmarks.length < 468) return "No face";
@@ -33,8 +43,6 @@ export function getHeadPoseDirection(landmarks) {
   const yaw = dx;   // Horizontal (left/right)
   const pitch = dy; // Vertical (up/down)
 
-  // DEBUG: Show raw pitch/yaw in console
-  console.log("Pitch:", pitch.toFixed(4), "Yaw:", yaw.toFixed(4));
 
   if (pitch > 0.1400) return "Looking down";
   if (pitch < 0.0550 ) return "Looking up";
