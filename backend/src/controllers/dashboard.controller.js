@@ -11,13 +11,22 @@ export const dashboard = async (req, res) => {
       exams.map(async (exam) => {
         const submissions = await Submit.find({ testId: exam._id }).populate("userId", "email");
 
-        const completed = submissions.filter((s) => s.status === "completed").length;
+        const completedSubs = submissions.filter((s) => s.status === "completed"); 
+
 
         const attempting = submissions
-          .filter((s) => s.status === "attempting")
-          .map((s) => s.userId?.email)
-          .filter(Boolean); // removes any null/undefined in case populate fails
+        .filter((s) => s.status === "attempting")
+        .map((s) => s.userId?.email)
+        .filter(Boolean); // removes any null/undefined in case populate fails
 
+        const completed = completedSubs.map((s) => ({
+          email: s.userId?.email,
+          score: s.result?.score || 0,
+          total: s.result?.total || 0,
+          breakdown: s.result?.breakdown || {},
+        }));
+
+          
         return {
           name: exam.testTitle,
           createdAt: exam.createdAt.toISOString().split("T")[0],

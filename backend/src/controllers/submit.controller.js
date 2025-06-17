@@ -94,20 +94,22 @@ for (const ans of answers) {
 }
 
 
-existingSubmission.answers = answers;
-existingSubmission.status = "completed";
-await existingSubmission.save();
+  existingSubmission.answers = answers;
+  existingSubmission.status = "completed";
+  existingSubmission.result = {
+    score: correct,
+    total: exam.questions.length,
+    breakdown: { correct, wrong, notAttempted },
+    status: "evaluated",
+  };
 
-const resultData = {
+  await existingSubmission.save();
+  res.status(201).json({
       message: "MCQ Test submitted successfully.",
       score: correct,
       total: exam.questions.length,
       breakdown: { correct, wrong, notAttempted },
-      detailedResults,
-    };
-
-    console.log("Result JSON Response:", resultData);
-    res.status(201).json(resultData);
+    });
 
   } catch (err) {
     console.error("MCQ submission error:", err);

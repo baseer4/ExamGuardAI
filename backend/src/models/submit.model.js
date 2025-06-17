@@ -11,6 +11,21 @@ const answerSchema = new mongoose.Schema({
     writtenAnswer:String,
 });
 
+const resultSchema = new mongoose.Schema({
+  score: Number,
+  total: Number,
+  breakdown: {
+    correct: Number,
+    wrong: Number,
+    notAttempted: Number,
+  },
+  status: {
+    type: String,
+    enum: ["evaluated", "not_evaluated"],
+    default: "not_evaluated"
+  }
+});
+
 const submitSchema = new mongoose.Schema(
     {
         testId:{
@@ -29,10 +44,15 @@ const submitSchema = new mongoose.Schema(
             default: "attempting"
         },
         answers:[answerSchema],
+        result: {
+      type: resultSchema,
+      default: undefined, 
+    },
+
     },
     {timestamps:true}
 );
 
 
-const Submit = mongoose.model("submit",submitSchema);
+const Submit = mongoose.models.Submit || mongoose.model("Submit", submitSchema);
 export default Submit;
