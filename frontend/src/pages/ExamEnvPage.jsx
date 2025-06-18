@@ -3,18 +3,29 @@ import Assignment from "../components/Assignment";
 import Mcq from "../components/Mcq";
 import { useExamStore } from "../store/useExamStore";
 import { useParams } from "react-router-dom";
+import { useFlagStore } from "../store/useFlagStore";
 
 const ExamEnvPage = () => {
   const { id } = useParams();
   const [started, setStarted] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
-  const [violations, setViolations] = useState([]);
-
+  const {violations,addViolation} = useFlagStore()
   const { fetchTestQuestions, testQuestions } = useExamStore();
+  const [violationTrackingStarted, setViolationTrackingStarted] = useState(false);
+
 
   useEffect(() => {
     if (id) fetchTestQuestions(id);
   }, [id, fetchTestQuestions]);
+
+useEffect(() => {
+  console.log("Violation count changed:", violations.length);
+  if (violations.length >= 10) {
+    console.log("Triggering auto-submit...");
+    handleSubmitExam();
+  }
+}, [violations]);
+
 
   const handleSubmitExam = () => {
     console.log("Auto-submitting due to violations...");
@@ -23,20 +34,16 @@ const ExamEnvPage = () => {
     document.exitFullscreen?.();
   };
 
-  const recordViolation = (message, type = "general") => {
-    const timestamp = new Date().toISOString();
-    const newViolation = { message, type, timestamp };
+const recordViolation = (message, type = "general") => {
+   if (!violationTrackingStarted) return;
+  const timestamp = new Date().toISOString();
+  const newViolation = { message, type, timestamp };
+  addViolation(newViolation);
 
-    setViolations(prev => {
-      const updated = [...prev, newViolation];
-      if (updated.length >= 3) {
-        handleSubmitExam(); // auto-submit after 3 violations
-      } else {
-        setWarningMessage(message);
-      }
-      return updated;
-    });
-  };
+    setWarningMessage(message);
+};
+
+
 
   useEffect(() => {
     const handleRestrictedAction = (e) => {
@@ -103,6 +110,10 @@ const ExamEnvPage = () => {
       else if (elem.msRequestFullscreen) await elem.msRequestFullscreen();
 
       setStarted(true);
+      setTimeout(() => {
+      setViolationTrackingStarted(true);
+    }, 5000);
+
     } catch (error) {
       alert("Fullscreen permission denied. Please allow fullscreen to continue.", error);
     }
