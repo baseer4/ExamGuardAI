@@ -18,7 +18,7 @@ const horizRatio = (leftIris.x - leftInner.x) / eyeWidth;
 const vertRatio = (leftIris.y - topLid.y) / eyeHeight;
 
 
-console.log("Horiz Ratio:", horizRatio.toFixed(3), "Vert Ratio:", vertRatio.toFixed(3));
+// console.log("Horiz Ratio:", horizRatio.toFixed(3), "Vert Ratio:", vertRatio.toFixed(3));
 
   if (vertRatio < 0.200) return "Looking down";
   if (vertRatio < 0.300 ) return "Looking up";
