@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import pattern1 from"../assets/images/blob (1).svg"
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -10,7 +9,7 @@ const HomePage = () => {
       <div className="flex justify-center animate-fade-in">
         <div className="max-w-2xl mt-20 text-center ">
            <h1 className="text-6xl font-round">AI-powered proctoring for secure exams</h1>
-           <p className="mt-5 font-semibold text-lg text-gray-500">Experience the power of AI with ExamGuardAI. Secure, reliable exam monitoring for both test-takers and creators, ensuring fair assessments every time.</p>
+           <p className="mt-5 font-semibold text-lg text-gray-500">Experience the power of AI with SecureTest. Secure, reliable exam monitoring for both test-takers and creators, ensuring fair assessments every time.</p>
 
            <div className="mt-10 flex gap-5 justify-center btn-lg">
               <button className="btn btn-accent z-10 hover:animate-fade-in-scale" onClick={()=> navigate("/join")}>Take a Test</button>
@@ -18,10 +17,7 @@ const HomePage = () => {
            </div>
           
         </div>
-
       </div>
-
-
 
       {/* background */}
       <div className='flex  justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 opacity-80 blur-3xl -z-20'>
@@ -41,11 +37,10 @@ const HomePage = () => {
 
             </div>
 
-
       </div>
+
       <div className='relative flex m-20 justify-center mb-8 '>
             <div className="card bg-base-300/15 min-w-[80vw] border border-white/15 shadow-md backdrop-filter backdrop-blur-xl p-8 shadow-base-200 gap-2 rounded-4xl">
-            <img       className="absolute -top-30 -left-30 opacity-90 w-80 -z-20" src={pattern1} alt="" />
                  <div className="tracking-tight text-6xl font-semibold text-base-content text-center leading-tight space-y-3">
                       <div>
                         <span>Secure, </span>
@@ -57,16 +52,9 @@ const HomePage = () => {
                         <span className="text-base-content">built with Google’s MediaPipe.</span>
                       </div>
                     </div>
-
-                  
-                  <p className='text-xl font-semibold text-base-content text-center mt-2'>ExamGuardAI is built using Google’s MediaPipe framework to deliver reliable, real-time proctoring directly in the browser. </p>
-
-
+                  <p className='text-xl font-semibold text-base-content text-center mt-2'>SecureTest is built using Google’s MediaPipe framework to deliver reliable, real-time proctoring directly in the browser. </p>
             </div>
 
-
-
-            
       </div>
           <div className='flex justify-center mb-5 -mt-5'>
              
@@ -79,7 +67,7 @@ const HomePage = () => {
 
                       <div className="card bg-base-300/15 border border-white/15 shadow-lg backdrop-filter backdrop-blur-xl p-8 shadow-base-300 gap-2 rounded-2xl">
                         <h3 className="text-lg font-semibold mb-2">Built with MediaPipe</h3>
-                        <p>Leveraging Google’s MediaPipe, ExamGuard ensures precise face and head tracking for reliable, non-intrusive exam supervision.</p>
+                        <p>Leveraging Google’s MediaPipe, SecureTest ensures precise face and head tracking for reliable, non-intrusive exam supervision.</p>
                       </div>
 
                       <div className="card bg-base-300/15 border border-white/15 shadow-lg backdrop-filter backdrop-blur-xl p-8 shadow-base-300 gap-2 rounded-2xl">
@@ -92,14 +80,8 @@ const HomePage = () => {
                         <p>We don’t store videos or faces. All analysis happens locally, prioritizing both student privacy and fast performance.</p>
                       </div>
                     </div>
-</div>
-
-
-
-    </div>
-
-   
-
+                  </div>
+              </div>
   )
 }
 
