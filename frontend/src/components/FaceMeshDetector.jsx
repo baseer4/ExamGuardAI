@@ -14,7 +14,7 @@ export default function FaceMeshDetector() {
 
 
   const headPose = faceDetected
-    ? getHeadPoseDirection(landmarks)  // ✅ Fixed here
+    ? getHeadPoseDirection(landmarks)  
     : "❓";
 
   const eyeDirection = faceDetected ? getEyeDirection(landmarks) : "❓";

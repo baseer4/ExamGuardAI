@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect ,forwardRef,useImperativeHandle} from 'react';
 import { FiClock } from 'react-icons/fi';
 import { useExamStore } from '../store/useExamStore';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import formatTime from '../lib/formatTime';
 import EndButton from './EndButton';
 import FaceMeshDetector from './FaceMeshDetector';
 
-export default function Mcq() {
+const Mcq = forwardRef((props, ref) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { fetchTestQuestions, testQuestions, testQuestionsError } = useExamStore();
@@ -65,6 +65,9 @@ export default function Mcq() {
       setCurrentQuestion((prev) => prev - 1);
     }
   };
+   useImperativeHandle(ref, () => ({
+    submitExam: handleSubmit
+  }));
 
   const handleSubmit = async () => {
     const formattedAnswers = testQuestions.questions.map((q, index) => ({
@@ -216,4 +219,5 @@ export default function Mcq() {
       </main>
     </div>
   );
-}
+});
+export default Mcq;
