@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { axiosInstance } from '../lib/axios';
 
 export const useDashboardStore = create((set) => ({
-  dashdata:{}, 
+  dashdata:[], 
   fetchDash: async () => {
     try {
       const res = await axiosInstance.get('/dashboard/all');

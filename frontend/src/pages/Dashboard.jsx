@@ -1,70 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDashboardStore } from '../store/useDashboardStore';
-import { useEffect } from 'react';
 
 const Dashboard = () => {
-  const {dashdata,fetchDash} = useDashboardStore();
+  const { dashdata, fetchDash } = useDashboardStore();
+  const [activeTab, setActiveTab] = useState('created');
 
   useEffect(() => {
     fetchDash();
-
-    const interval = setInterval(() => {
-      fetchDash(); 
-    }, 5000);
-    console.log('hi')
-    return () => clearInterval(interval); // clean up
+    const interval = setInterval(fetchDash, 5000);
+    return () => clearInterval(interval);
   }, []);
 
-const createdTests = dashdata || []; 
-   const testResults =  [];
+  const createdTests = Array.isArray(dashdata) ? dashdata : [];
+  const testResults = []; 
 
-  // // Mock data for created tests
-  // const createdTests = [
-  //   {
-  //     name: 'Math Final',
-  //     createdAt: '2025-06-01',
-  //     duration: '60 mins',
-  //     total: 20,
-  //     completed: 14,
-  //     attempting: ['alice@gmail.com', 'bob@yahoo.com', 'charlie@outlook.com'],
-  //     link: 'https://securetest.app/test/math123'
-  //   },
-  //   {
-  //     name: 'Physics Quiz',
-  //     createdAt: '2025-06-05',
-  //     duration: '45 mins',
-  //     total: 10,
-  //     completed: 10,
-  //     attempting: [],
-  //     link: 'https://securetest.app/test/phy456'
-  //   }
-  // ];
-
-  // // Mock data for results
-  // const testResults = [
-  //   {
-  //     name: 'Chemistry Lab',
-  //     score: 85,
-  //     status: 'Completed',
-  //     date: '2025-06-06'
-  //   }
-  // ];
-
-  const defaultTab = createdTests.length > 0 ? 'created' : 'results';
-  const [activeTab, setActiveTab] = useState(defaultTab);
+  useEffect(() => {
+    if (createdTests.length === 0) {
+      setActiveTab('results');
+    }
+  }, [createdTests]);
 
   return (
     <div className="min-h-screen bg-base-200 text-base-content p-6">
+      {/* Tab Buttons */}
       <div className="flex justify-center mb-8">
         <div className="btn-group">
           <button
-            className={`btn ${activeTab === 'created' ? 'btn-link' : ''}`}
+            className={`btn ${activeTab === 'created' ? 'btn-primary' : ''}`}
             onClick={() => setActiveTab('created')}
           >
             Created Tests
           </button>
           <button
-            className={`btn ${activeTab === 'results' ? 'btn-link' : ''}`}
+            className={`btn ${activeTab === 'results' ? 'btn-primary' : ''}`}
             onClick={() => setActiveTab('results')}
           >
             My Results
@@ -72,6 +40,7 @@ const createdTests = dashdata || [];
         </div>
       </div>
 
+      {/* Created Tests */}
       {activeTab === 'created' && (
         <>
           {createdTests.length === 0 ? (
@@ -88,17 +57,37 @@ const createdTests = dashdata || [];
                     <h2 className="card-title">{test.name}</h2>
                     <p><strong>Created:</strong> {test.createdAt}</p>
                     <p><strong>Duration:</strong> {test.duration}</p>
-                    <p><strong>Students:</strong> {test.completed} done / {test.total} total</p>
-                    {test.attempting.length > 0 && (
+                    <p><strong>Students:</strong> {test.completed.length} done / {test.total} total</p>
+
+                    {/* Completed Results */}
+                    {test.completed.length > 0 && (
                       <>
-                        <p><strong>Currently Attempting:</strong> {test.attempting.length}</p>
+                        <p className="mt-2 font-semibold">Completed:</p>
                         <ul className="list-disc list-inside text-sm ml-2">
-                          {test.attempting.map((email, idx) => (
-                            <li key={idx}>{email.replace(/(.{3}).+(@.+)/, '$1***$2')}</li>
+                          {test.completed.map((res, idx) => (
+                            <li key={idx}>
+                              {res.email?.replace(/(.{3}).+(@.+)/, '$1***$2')} — Score: {res.score}/{res.total}
+                            </li>
                           ))}
                         </ul>
                       </>
                     )}
+
+                    {/* Attempting Users */}
+                    {test.attempting.length > 0 && (
+                      <>
+                        <p className="mt-2 font-semibold">Currently Attempting:</p>
+                        <ul className="list-disc list-inside text-sm ml-2">
+                          {test.attempting.map((email, idx) => (
+                            <li key={idx}>
+                              {email.replace(/(.{3}).+(@.+)/, '$1***$2')}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+
+                    {/* Invite Link */}
                     <div className="mt-3">
                       <label className="text-sm font-semibold">Invite Link:</label>
                       <div className="flex gap-2 mt-1">
@@ -115,6 +104,7 @@ const createdTests = dashdata || [];
                         </button>
                       </div>
                     </div>
+
                     <div className="mt-4 flex gap-2">
                       <button className="btn btn-sm btn-primary">View</button>
                       <button className="btn btn-sm btn-warning">Edit</button>
@@ -128,6 +118,7 @@ const createdTests = dashdata || [];
         </>
       )}
 
+      {/* Results Placeholder */}
       {activeTab === 'results' && (
         <>
           {testResults.length === 0 ? (
