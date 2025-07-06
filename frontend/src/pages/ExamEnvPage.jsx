@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 import Assignment from "../components/Assignment";
 import Mcq from "../components/Mcq";
 import { useExamStore } from "../store/useExamStore";
@@ -12,6 +12,7 @@ const ExamEnvPage = () => {
   const {violations,addViolation} = useFlagStore()
   const { fetchTestQuestions, testQuestions } = useExamStore();
   const [violationTrackingStarted, setViolationTrackingStarted] = useState(false);
+  const mcqRef = useRef();
 
 
   useEffect(() => {
@@ -28,11 +29,12 @@ useEffect(() => {
 
 
   const handleSubmitExam = () => {
-    console.log("Auto-submitting due to violations...");
-    alert("You violated exam rules too many times. Submitting your exam.");
-    setStarted(false);
-    document.exitFullscreen?.();
-  };
+  console.log("Auto-submitting due to violations...");
+  alert("You violated exam rules too many times. Submitting your exam.");
+  mcqRef.current?.submitExam?.(); 
+  setStarted(false);
+  document.exitFullscreen?.();
+};
 
 const recordViolation = (message, type = "general") => {
    if (!violationTrackingStarted) return;
@@ -59,13 +61,13 @@ const recordViolation = (message, type = "general") => {
         recordViolation("This keyboard shortcut is disabled.", "clipboard");
       }
 
-      // if (
-      //   key === "f12" ||
-      //   (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key))
-      // ) {
-      //   e.preventDefault();
-      //   recordViolation("Opening developer tools is not allowed.", "devtools");
-      // }
+      if (
+        key === "f12" ||
+        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key))
+      ) {
+        e.preventDefault();
+        recordViolation("Opening developer tools is not allowed.", "devtools");
+      }
 
       if (key === "escape" && started) {
         e.preventDefault();
@@ -97,7 +99,7 @@ const recordViolation = (message, type = "general") => {
       document.removeEventListener("paste", handleRestrictedAction);
       document.removeEventListener("cut", handleRestrictedAction);
       document.removeEventListener("contextmenu", handleContextMenu);
-      // document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
       enableSelection();
     };
   }, [started]);
@@ -135,7 +137,6 @@ const recordViolation = (message, type = "general") => {
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Start/Resume overlay */}
       {!started && (
         <div className="fixed inset-0 bg-base-300 bg-opacity-70 flex items-center justify-center z-50">
           <div className="text-center">
@@ -150,7 +151,7 @@ const recordViolation = (message, type = "general") => {
         </div>
       )}
 
-      {/* Warning overlay */}
+      {/* warning overlay */}
       {warningMessage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 animate-fade-in">
           <div className="bg-white rounded-xl p-6 shadow-lg text-center max-w-md w-full">
@@ -166,12 +167,11 @@ const recordViolation = (message, type = "general") => {
         </div>
       )}
 
-      {/* Exam content */}
       {started && (
         testQuestions.type === "Assignment" ? (
           <Assignment />
         ) : testQuestions.type === "MCQ" ? (
-          <Mcq />
+          <Mcq ref={mcqRef}/>
         ) : null
       )}
     </div>
