@@ -66,7 +66,7 @@ const Dashboard = () => {
                         <ul className="list-disc list-inside text-sm ml-2">
                           {test.completed.map((res, idx) => (
                             <li key={idx}>
-                              {res.email?.replace(/(.{3}).+(@.+)/, '$1***$2')} — Score: {res.score}/{res.total}
+                              {res.email?.replace(/(.{3}).+(@.+)/, '$1***$2')} 
                             </li>
                           ))}
                         </ul>
@@ -135,7 +135,6 @@ const Dashboard = () => {
                     <th>Test Name</th>
                     <th>Date</th>
                     <th>Status</th>
-                    <th>Score</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -144,7 +143,6 @@ const Dashboard = () => {
                       <td>{res.name}</td>
                       <td>{res.date}</td>
                       <td><span className="badge badge-success">{res.status}</span></td>
-                      <td>{res.score}%</td>
                     </tr>
                   ))}
                 </tbody>

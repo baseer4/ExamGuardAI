@@ -21,8 +21,6 @@ export const dashboard = async (req, res) => {
 
         const completed = completedSubs.map((s) => ({
           email: s.userId?.email,
-          score: s.result?.score || 0,
-          total: s.result?.total || 0,
           breakdown: s.result?.breakdown || {},
         }));
 

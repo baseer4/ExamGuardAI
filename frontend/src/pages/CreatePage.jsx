@@ -49,7 +49,7 @@ const CreatePage = () => {
                 className="rounded-xl" />
             </figure>
             <div className="card-body items-center text-center ">
-            <h2 className="card-title mt-5">Coding</h2>
+            <h2 className="card-title mt-5 inline-block items-center">Coding[experimental]</h2>
             <p>Launch hands-on coding tests with real-time tracking, auto-evaluation, and support for multiple languages.</p>
             <div className="card-actions">
                 <button className="btn btn-primary hover:animate-fade-in-scale" onClick={() => navigate("/create/code")}>Select</button>

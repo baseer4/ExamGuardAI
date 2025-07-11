@@ -65,7 +65,7 @@ const InstructionPage = () => {
                 <li>Stable internet connection</li>
                 <li>Functioning webcam and microphone</li>
                 <li>Updated browser (Chrome or Firefox recommended)</li>
-                <li>Device is charged or connected to power</li>
+                <li>Device should be charged or connected to power</li>
               </ul>
             </div>
           </section>
