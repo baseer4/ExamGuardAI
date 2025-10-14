@@ -26,9 +26,9 @@ app.use("/api", examRoutes)
 app.use("/api", submitRoutes)
 app.use("/api", dashboardRoutes)
 
-// app.listen(PORT,()=>{
-//     console.log(`Server is running on ${PORT}`);
-//     connectDB()
-// })
+app.listen(PORT,()=>{
+    console.log(`Server is running on ${PORT}`);
+    connectDB()
+})
 
-export default app;
+
