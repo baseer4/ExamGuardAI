@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: silk --default,forest;
+  themes: cupcake --default,forest;
 }
 
 
@@ -12,6 +14,9 @@
   --font-hero-primary: "Domine", serif;
   --font-intro: "Lexend", sans-serif;
   --font-round: "Atkinson Hyperlegible Next", sans-serif;
+  --font-open: "Open Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-noto-sans: "Noto Sans", sans-serif;
 
   
  
@@ -38,3 +43,75 @@
 
 }
 
+/* todo hero section */
+/* .trapezoid-img {
+  width: 100%;
+  display: block;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  transform: scaleY(1);
+  transition: transform 0.3s ease;
+}.card {
+  perspective: 1000px;
+} */
+
+.card-inner {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem; /*  mobile */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-inner:hover {
+    transform: rotateX(10deg) rotateY(10deg);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-inner:hover .card-shine {
+    left: 125%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-inner {
+    padding: 4rem;
+  }
+}
+
+.card-shine {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+@media (hover: none) {
+  .card-shine {
+    animation: shineMobile 2.5s linear infinite;
+  }
+
+  @keyframes shineMobile {
+    0% { left: -50%; }
+    100% { left: 150%; }
+  }
+}
+
+@media (max-width: 768px) {
+  .card-inner {
+    transform: rotateX(2deg) rotateY(2deg);
+  }
+}

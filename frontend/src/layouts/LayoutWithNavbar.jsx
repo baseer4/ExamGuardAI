@@ -5,10 +5,10 @@ import Navbar from "../components/Navbar";
 
 const LayoutWithNavbar = () => {
   return (
-   <>
+   <div className="max-h-screen overflow-hidden">
     <Navbar/>
     <Outlet/>
-   </>
+   </div>
   )
 }
 

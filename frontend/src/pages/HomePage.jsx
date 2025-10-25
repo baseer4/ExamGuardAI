@@ -1,88 +1,115 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import {MousePointer2} from "lucide-react";
+import { motion } from "framer-motion";
+import GithubSection from "../components/Hero/GithubSection";
+import Keyfeatures from "../components/Hero/Keyfeatures";
 
 const HomePage = () => {
   const navigate = useNavigate();
+ 
+  const circularFlyIn = {
+    hidden: { opacity: 0, x: -150, y: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <div >
+    <div className="w-full">
+      <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+        {/* Gradient BG */}
+        <div
+          className="fixed inset-0 -z-10 bg-base-300"
+          style={{
+            background: `
+                          radial-gradient(ellipse 120% 80% at 70% 20%, rgba(255, 20, 147, 0.15), transparent 50%),
+                          radial-gradient(ellipse 100% 60% at 30% 10%, rgba(0, 255, 255, 0.12), transparent 60%),
+                          radial-gradient(ellipse 90% 70% at 50% 0%, rgba(138, 43, 226, 0.18), transparent 65%),
+                          radial-gradient(ellipse 110% 50% at 80% 30%, rgba(255, 215, 0, 0.08), transparent 40%)
+                        `,
+          }}
+        />
 
-      <div className="flex justify-center animate-fade-in">
-        <div className="max-w-2xl mt-20 text-center ">
-           <h1 className="text-6xl font-round">AI-powered proctoring for secure exams</h1>
-           <p className="mt-5 font-semibold text-lg text-gray-500">Experience the power of AI with SecureTest. Secure, reliable exam monitoring for both test-takers and creators, ensuring fair assessments every time.</p>
+        {/* ===== Screen 1 ===== */}
+        <section className="h-screen relative flex justify-center items-start py-25 md:py-44 snap-start">
+          <div className="max-w-2xl text-center px-6">
+            <h1 className="text-5xl md:text-6xl font-noto-sans font-semibold text-base-content tracking-tight">
+              Experience a New Era of AI Proctoring
+            </h1>
+            <p className="mt-5 font-semibold text-md md:text-lg text-gray-500">
+                ExamGuardAI makes cheating impossible. With intelligent monitoring and instant reporting, every exam is safe, fair, and fully transparent.
 
-           <div className="mt-10 flex gap-5 justify-center btn-lg">
-              <button className="btn btn-accent z-10 hover:animate-fade-in-scale" onClick={()=> navigate("/join")}>Take a Test</button>
-              <button className="btn btn-accent z-10 hover:animate-fade-in-scale"  onClick={() => navigate("/create")}>Create a Test</button>
-           </div>
-          
-        </div>
+            </p>
+
+            <div className="mt-10 flex gap-5 justify-center">
+              <button
+                className="btn btn-neutral hover:animate-fade-in-scale"
+                onClick={() => navigate("/join")}
+              >
+                Take a Test
+              </button>
+              <button
+                className="btn btn-neutral hover:animate-fade-in-scale"
+                onClick={() => navigate("/create")}
+              >
+                Create a Test
+              </button>
+            </div>
+          </div>
+          <motion.div
+            className="hidden lg:block absolute top-1/5.5 right-1/5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 1 }}
+            variants={circularFlyIn}
+          >
+            <div className="relative">
+              <MousePointer2 className="absolute -top-4.5 -left-4.5 text-base-content" />
+            </div>
+            <div className="px-4 py-1.5 bg-[#F39E60] w-auto rounded-r-2xl rounded-bl-2xl">
+              <p className="text-white text-center">AI proctor</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="hidden lg:block absolute bottom-1/3 left-1/5"
+            initial={{ opacity: 0, x: 50, y: 50 }} // start diagonally opposite
+            whileInView={{
+              opacity: 1,
+              x: 0,
+              y: 0,
+              transition: { duration: 1, ease: "easeOut" },
+            }}
+            viewport={{ once: true, amount: 0.5 }}
+          >
+            <div className="relative">
+              <MousePointer2
+                style={{ transform: "rotate(90deg)" }}
+                className="absolute -top-4.5 -right-4.5 text-base-content"
+              />
+            </div>
+            <div className="px-4 py-1.5 bg-[#c8d1a7] w-auto rounded-br-2xl rounded-l-2xl">
+              <p className="text-white text-center">Exam Monitoring</p>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* ===== Screen 2: Key Features ===== */}
+        <Keyfeatures />
+       
+        {/* ===== Screen 3: Open Source Section (No Color, Structural Aesthetic) ===== */}
+          <GithubSection />
       </div>
+      
+    </div>
+  );
+};
 
-      {/* background */}
-      <div className='flex  justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 opacity-80 blur-3xl -z-20'>
-            <div className="container  bg-orange-400  border-2 w-64 h-64 rounded-full mix-blend-multiply filter ">
-
-            </div>     
-            <div className="container absolute border-2 bg-purple-400 w-64 h-64 rounded-full">
-
-            </div>
-            <div className="container absolute top-20 border-2 bg-red-400 w-64 h-64 rounded-full">
-
-            </div>
-            <div className="container absolute bottom-20 border-2 bg-blue-400 w-64 h-64 rounded-full">
-
-            </div>
-            <div className="container border-2  bg-emerald-400 w-64 h-64 rounded-full">
-
-            </div>
-
-      </div>
-
-      <div className='relative flex m-20 justify-center mb-8 '>
-            <div className="card bg-base-300/15 min-w-[80vw] border border-white/15 shadow-md backdrop-filter backdrop-blur-xl p-8 shadow-base-200 gap-2 rounded-4xl">
-                 <div className="tracking-tight text-6xl font-semibold text-base-content text-center leading-tight space-y-3">
-                      <div>
-                        <span>Secure, </span>
-                        <span className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-transparent bg-clip-text drop-shadow-md">
-                          AI-driven exam monitoring
-                        </span>
-                      </div>
-                      <div>
-                        <span className="text-base-content">built with Google’s MediaPipe.</span>
-                      </div>
-                    </div>
-                  <p className='text-xl font-semibold text-base-content text-center mt-2'>SecureTest is built using Google’s MediaPipe framework to deliver reliable, real-time proctoring directly in the browser. </p>
-            </div>
-
-      </div>
-          <div className='flex justify-center mb-5 -mt-5'>
-             
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-8 max-w-[80vw]">
-                      {/* Top Row: 3 cards */}
-                      <div className="card bg-base-300/15 border border-white/15 shadow-lg backdrop-filter backdrop-blur-xl p-8 shadow-base-300 gap-2 rounded-2xl">
-                        <h3 className="text-lg font-semibold mb-2">Secure Monitoring</h3>
-                        <p>Stay protected with real-time exam monitoring that runs entirely in the browser — no extensions, no software, just seamless proctoring.</p>
-                      </div>
-
-                      <div className="card bg-base-300/15 border border-white/15 shadow-lg backdrop-filter backdrop-blur-xl p-8 shadow-base-300 gap-2 rounded-2xl">
-                        <h3 className="text-lg font-semibold mb-2">Built with MediaPipe</h3>
-                        <p>Leveraging Google’s MediaPipe, SecureTest ensures precise face and head tracking for reliable, non-intrusive exam supervision.</p>
-                      </div>
-
-                      <div className="card bg-base-300/15 border border-white/15 shadow-lg backdrop-filter backdrop-blur-xl p-8 shadow-base-300 gap-2 rounded-2xl">
-                        <h3 className="text-lg font-semibold mb-2">Instant Proctoring</h3>
-                        <p>No setup delays. Exams begin with immediate monitoring, letting candidates focus while the system handles everything behind the scenes.</p>
-                      </div>
-
-                      <div className="card bg-base-300/15 border border-white/15 shadow-lg backdrop-filter backdrop-blur-xl p-8 shadow-base-300 gap-2 rounded-2xl">
-                        <h3 className="text-lg font-semibold mb-2">Privacy-First</h3>
-                        <p>We don’t store videos or faces. All analysis happens locally, prioritizing both student privacy and fast performance.</p>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-  )
-}
-
-export default HomePage
+export default HomePage;
