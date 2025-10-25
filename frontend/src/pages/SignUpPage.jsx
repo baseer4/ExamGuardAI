@@ -53,7 +53,7 @@ const SignUpPage = () => {
 
           <div className="mb-5 p-2">
             <h1 className="text-center text-5xl font-round font-light">Sign Up</h1>
-            <h4 className="text-center mt-2 text-lg"> sign up to create new account</h4>
+            <h4 className="text-center mt-2 text-lg"> Signup to create new account</h4>
 
           </div>
             <div className="flex flex-col gap-2 p-8 relative">

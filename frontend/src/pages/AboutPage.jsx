@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutPage = () => {
   return (
-    <section className="bg-base-200 h-[calc(100vh-6rem)] py-20 px-6">
+    <section className="h-screen bg-base-100 py-20 px-6">
       <div className="max-w-4xl mx-auto text-center space-y-8">
         <h2 className="text-4xl font-bold text-primary">
           About ExamGuardAI
@@ -37,7 +37,7 @@ const AboutPage = () => {
         </div>
 
         <div className="pt-6 mt-32">
-          <a href="/" className="btn btn-primary btn-wide">
+          <a href="/" className="btn btn-secondary btn-wide">
             Get Started
           </a>
         </div>
@@ -46,6 +46,7 @@ const AboutPage = () => {
           "Modern exams deserve modern protection — ExamGuardAI is the silent invigilator you can trust."
         </p>
       </div>
+      
     </section>
   );
 };
