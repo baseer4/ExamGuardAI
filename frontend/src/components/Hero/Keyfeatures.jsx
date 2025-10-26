@@ -25,7 +25,7 @@ const Keyfeatures = () => {
 
   const letterVariant = {
     hidden: (i) => ({
-      rotate: 75
+      rotate: 75,
       y: 60 + Math.random() * 30,
       opacity: 0,
     }),
