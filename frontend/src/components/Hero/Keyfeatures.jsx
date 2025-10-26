@@ -24,9 +24,9 @@ const Keyfeatures = () => {
   };
 
   const letterVariant = {
-    hidden: (i) => ({
+    hidden: () => ({
       rotate: 75,
-      y: 60 + Math.random() * 30,
+      y: 30,
       opacity: 0,
     }),
     visible: {
@@ -81,7 +81,7 @@ const cards = [
   return (
     <section className="min-h-screen lg:h-screen flex flex-col items-center snap-start ">
       <div className="text-center mb-10">
-        <div className="flex items-center justify-center gap-2 border-2 border-neutral/80 rounded-4xl p-2 w-fit mx-auto">
+        <div className="flex items-center justify-center gap-2 border-2 border-base-content/60 rounded-4xl p-2 w-fit mx-auto mt-2 mb-2 md:mb-0">
           <WandSparkles size={18} />
           <motion.span
             initial={{ rotate: -8 }}
@@ -94,11 +94,11 @@ const cards = [
         </div>
 
         <motion.h2
-          className="mt-2 text-4xl md:text-6xl font-noto-sans font-semibold text-base-content leading-tight tracking-tight inline-block"
+          className="mt-2 text-3xl md:text-6xl font-noto-sans font-semibold text-base-content leading-tight tracking-tight inline-block"
           variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.5 }} 
+          viewport={{ once: true, amount: 0.5 }} 
         >
           {renderAnimatedText(line1)}
           <br />
@@ -106,7 +106,7 @@ const cards = [
         </motion.h2>
 
         <motion.h3
-          className="mt-4 text-gray-500 max-w-2xl mx-auto text-center leading-relaxed"
+          className="mt-0 md:mt-4 text-gray-500 max-w-2xl mx-auto text-center leading-relaxed p-4 md:p-0"
           variants={{
             hidden: { opacity: 0, y: 30 },
             visible: {
@@ -117,19 +117,22 @@ const cards = [
           }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
         >
           Explore how our features change the way exams are taken & monitored.
-          <br />
-          From smart tracking to instant reports, every tool is built to make
+          <br className="hidden md:block"/>
+            <span className="hidden md:inline">
+
+           From smart tracking to instant reports, every tool is built to make
           testing fair, clear, and effortless.
+          </span>
         </motion.h3>
       </div>
       <div className="w-full py-6 flex justify-center">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl px-6 mb-20 -mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl px-6 mb-20 -mt-10 md:-mt-6">
           {cards.map((card, i) => (
-            <div key={i} className="card">
-              <div className="card-inner relative">
+            <div key={i} className="card bg-base-300/10 backdrop-blur-3xl ">
+              <div className="card-inner relative ">
                 <div className="card-shine absolute"></div>
                 <div
                   className={`w-16 h-16 flex items-center justify-center rounded-full ${card.color} mb-6 mx-auto`}
