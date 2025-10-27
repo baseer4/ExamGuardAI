@@ -44,19 +44,19 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="mt-24 animate-fade-in">
+    <div className="animate-fade-in px-4">
 
     <form 
        onSubmit={handleSubmit}
-       className="flex justify-center items-center min-h-screen[calc(100vh-8rem)]">
+       className="flex justify-center items-center h-[calc(100vh-8rem)]">
         <div className="border-2 p-6 w-full max-w-md rounded-xl ">
 
-          <div className="mb-5 p-2">
+          <div className="mb-4 ">
             <h1 className="text-center text-5xl font-round font-light">Sign Up</h1>
             <h4 className="text-center mt-2 text-lg"> Signup to create new account</h4>
 
           </div>
-            <div className="flex flex-col gap-2 p-8 relative">
+            <div className="flex flex-col gap-2 p-2 md:p-4 relative">
                   <label className="label">
                       <span className="label-text font-medium">Full Name</span>
                   </label>
@@ -86,6 +86,8 @@ const SignUpPage = () => {
                   <label className="label">
                         <span className="label-text font-medium">Password</span>
                   </label>
+                  <div className='relative'>
+
                   <input 
                     type={showPassword ? "text" : "password"} 
                     name="password"
@@ -95,10 +97,11 @@ const SignUpPage = () => {
                     onChange={handleChange}
                     />
 
-                  <button type="button" className="absolute inset-y-0 right-12 top-52 z-10" onClick={()=>setShowPassword(!showPassword)}>
+                  <button type="button" className="absolute inset-y-0 right-4 leftz-10" onClick={()=>setShowPassword(!showPassword)}>
                     {showPassword ? (<FaRegEyeSlash />):( <GoEye />
                     )}
                   </button>
+                  </div>
 
             </div>
                   <div className=" flex justify-center ">

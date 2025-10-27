@@ -23,19 +23,19 @@ const LoginPage = () => {
     login(formData);
   }
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in px-4">
     
         <form 
            onSubmit={handleSubmit}
-           className="flex justify-center items-center min-h-[calc(100vh-8rem)]">
+           className="flex justify-center items-center h-[calc(100vh-8rem)]">
             <div className="border-2 p-6 w-full max-w-md rounded-xl ">
     
-              <div className="mb-5 p-2">
+              <div className="mb-4 p-2">
                 <h1 className="text-center text-5xl font-round font-light">Login</h1>
                 <h4 className="text-center mt-2 text-lg"> Enter the credentials to continue</h4>
     
               </div>
-                <div className="flex flex-col gap-2 p-8 relative">
+                <div className="flex flex-col gap-2 p-2 md:p-4 relative">
       
                       <label className="label">
                             <span className="label-text font-medium">Email</span>
@@ -54,6 +54,8 @@ const LoginPage = () => {
                       <label className="label">
                             <span className="label-text font-medium">Password</span>
                       </label>
+                      <div className='relative'>
+
                       <input 
                         type={showPassword ? "text" : "password"} 
                         name="password"
@@ -63,11 +65,12 @@ const LoginPage = () => {
                         onChange={handleChange}
                         />
     
-                      <button type="button" className="absolute inset-y-0 right-12 top-30 z-10" onClick={()=>setShowPassword(!showPassword)}>
+                      <button type="button" className="absolute inset-y-0 right-4 z-10" onClick={()=>setShowPassword(!showPassword)}>
                         {showPassword ? (<FaRegEyeSlash />):( <GoEye />
                         )}
                       </button>
     
+                      </div>
                 </div>
                       <div className=" flex justify-center ">
                       <button type="submit" className="btn btn-neutral hover:animate-fade-in-scale ">Login</button>

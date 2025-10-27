@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 
 const GithubSection = () => (
-  <section className="h-screen w-full flex justify-center items-start py-36 snap-start relative overflow-hidden text-black">
-
+  <section className="h-screen w-full flex justify-center items-starts pt-36 snap-start relative overflow-hidden text-black">
     {/* 1 Ellipse */}
     <motion.div
       className="absolute rounded-[50%] border border-base-content/20
@@ -49,11 +48,14 @@ const GithubSection = () => (
       viewport={{ once: true }}
       className="relative z-10 text-center max-w-2xl px-6 sm:px-4"
     >
-      <h2 className="text-5xl sm:text-6xl lg:text-7xl font-semibold text-base-content tracking-tight mb-6">
-        Open Source.<br />Fully Transparent.
+      <h2 className="text-4xl md:text-6xl lg:text-7xl font-semibold font-noto-sans text-base-content tracking-tight mb-4 md:mb-6">
+        Open Source.
+        <br />
+        Fully Transparent.
       </h2>
-      <p className="text-lg sm:text-base  leading-relaxed text-base-content mb-10">
-        ExamGuardAI’s codebase is entirely public. Audit, improve, or adapt — we built it to inspire collaboration and innovation.
+      <p className="md:text-lg text-md leading-relaxed text-base-content mb-8">
+        The project’s open. You can see how it works, improve it, or build your
+        own version.
       </p>
 
       <motion.button
@@ -67,7 +69,6 @@ const GithubSection = () => (
         Visit GitHub →
       </motion.button>
     </motion.div>
-
   </section>
 );
 
