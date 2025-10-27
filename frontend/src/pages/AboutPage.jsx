@@ -2,22 +2,22 @@ import React from "react";
 
 const AboutPage = () => {
   return (
-    <section className="h-screen bg-base-100 py-20 px-6">
-      <div className="max-w-4xl mx-auto text-center space-y-8">
-        <h2 className="text-4xl font-bold text-primary">
+    <section className="h-screen bg-base-100 py-4 md:py-20 px-6">
+      <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-primary">
           About ExamGuardAI
         </h2>
 
-        <p className="text-base-content text-lg">
+        <p className="text-base-content text-md md:text-lg">
           ExamGuardAI is a lightweight, AI-powered proctoring solution that runs right in your browser.
           No extensions, no downloads — just smart monitoring for online exams.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8 text-left mt-15">
+        <div className="grid md:grid-cols-3 gap-8 text-left mt-8 md:mt-16 p-4">
           <div>
             <h3 className="font-semibold text-base-content mb-2">🎯 Real-Time Face Tracking</h3>
             <p className="text-md text-base-content">
-              Detects head pose, gaze direction, and face presence during the exam — all in the browser.
+              Detects head pose, gaze direction, face presence during the exam and supports all browsers.
             </p>
           </div>
 
@@ -36,7 +36,7 @@ const AboutPage = () => {
           </div>
         </div>
 
-        <div className="pt-6 mt-32">
+        <div className="pt-6 mt-0 md:mt-24">
           <a href="/" className="btn btn-secondary btn-wide">
             Get Started
           </a>

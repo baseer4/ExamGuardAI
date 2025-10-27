@@ -1,9 +1,15 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 
 const Navbar = () => {
   const { authUser, logout } = useAuthStore();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="md:mx-16 lg:mx-40">
       <div className="navbar gap-6 p-5 items-center z-50">
@@ -78,7 +84,10 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="sm:hidden">
-          <label htmlFor="mobile-menu" className="btn btn-square btn-ghost">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="btn btn-square btn-ghost"
+          >
             <svg
               className="w-6 h-6"
               fill="none"
@@ -92,43 +101,73 @@ const Navbar = () => {
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
-          </label>
+          </button>
         </div>
       </div>
-      <input type="checkbox" id="mobile-menu" className="hidden peer" />
-      <div className="peer-checked:flex hidden flex-col sm:hidden bg-base-100 w-full p-4 gap-2 shadow-md">
-        {!authUser ? (
-          <>
-            <Link
-              to="/signup"
-              className="btn btn-block btn-outline btn-primary"
-            >
-              Sign Up
-            </Link>
-            <Link to="/login" className="btn btn-block btn-primary">
-              Login
-            </Link>
-            <Link to="/about" className="btn btn-block btn-ghost">
-              About
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link to="/dashboard" className="btn btn-block btn-primary">
-              Dashboard
-            </Link>
-            <Link to="/profile" className="btn btn-block btn-outline">
-              Profile
-            </Link>
-            <Link to="/about" className="btn btn-block btn-ghost">
-              About
-            </Link>
-            <button onClick={logout} className="btn btn-block btn-error">
-              Logout
-            </button>
-          </>
-        )}
-      </div>
+
+      {/* Mobile Dropdown Menu */}
+      {isMenuOpen && (
+        <div className="flex flex-col sm:hidden bg-base-100 w-full p-4 gap-2 shadow-md">
+          {!authUser ? (
+            <>
+              <Link
+                to="/signup"
+                className="btn btn-block btn-outline btn-primary"
+                onClick={handleLinkClick}
+              >
+                Sign Up
+              </Link>
+              <Link
+                to="/login"
+                className="btn btn-block btn-primary"
+                onClick={handleLinkClick}
+              >
+                Login
+              </Link>
+              <Link
+                to="/about"
+                className="btn btn-block btn-ghost"
+                onClick={handleLinkClick}
+              >
+                About
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/dashboard"
+                className="btn btn-block btn-primary"
+                onClick={handleLinkClick}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/profile"
+                className="btn btn-block btn-outline"
+                onClick={handleLinkClick}
+              >
+                Profile
+              </Link>
+              <Link
+                to="/about"
+                className="btn btn-block btn-ghost"
+                onClick={handleLinkClick}
+              >
+                About
+              </Link>
+              <button
+                onClick={() => {
+                  logout();
+                  handleLinkClick();
+                }}
+                className="btn btn-block btn-error"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </header>
   );
 };
