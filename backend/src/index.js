@@ -19,6 +19,7 @@ app.use(cookieParser());
 
 app.use(cors({
     origin:process.env.VITE_FRONTEND_URL,
+    methods: ["POST", "GET"],
     credentials:true,
 }))
 app.use("/api/auth", authRoutes)
