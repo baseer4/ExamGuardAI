@@ -74,7 +74,7 @@ const HomePage = () => {
               <MousePointer2 className="absolute -top-4.5 -left-4.5 text-base-content" />
             </div>
             <div className="px-4 py-1.5 bg-[#F39E60] w-auto rounded-r-2xl rounded-bl-2xl">
-              <p className="text-white text-center">AI proctor</p>
+              <p className="text-white text-center select-none">AI proctor</p>
             </div>
           </motion.div>
 
@@ -96,7 +96,7 @@ const HomePage = () => {
               />
             </div>
             <div className="px-4 py-1.5 bg-[#c8d1a7] w-auto rounded-br-2xl rounded-l-2xl">
-              <p className="text-white text-center">Exam Monitoring</p>
+              <p className="text-white text-center select-none">Exam Monitoring</p>
             </div>
           </motion.div>
         </section>

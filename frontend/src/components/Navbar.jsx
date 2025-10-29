@@ -42,9 +42,6 @@ const Navbar = () => {
               <Link to="/profile" className="btn btn-soft">
                 Profile
               </Link>
-              <Link to="/about" className="btn btn-soft">
-                About
-              </Link>
               <button onClick={logout} className="btn btn-soft">
                 Logout
               </button>
@@ -150,7 +147,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/about"
-                className="btn btn-block btn-ghost"
+                className="hidden btn btn-block btn-ghost"
                 onClick={handleLinkClick}
               >
                 About

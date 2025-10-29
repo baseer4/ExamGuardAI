@@ -19,16 +19,16 @@ const LinkGenerator = () => {
 
   if (isJoinLinkLoading) {
     return (
-      <div className="h-[calc(100vh-6rem)] flex items-center justify-center bg-base-200 animate-fade-in">
+      <div className="h-screen flex items-center justify-center bg-base-100 animate-fade-in">
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   }
 
   return (
-    <div className="h-[calc(100vh-5rem)] flex flex-col items-center justify-center bg-base-200 animate-fade-in p-4">
-      <div className="p-6 bg-base-100 rounded-xl shadow-md w-full max-w-md text-center">
-        <h2 className="text-2xl font-semibold mb-1">Share This Link With Your Students</h2>
+    <div className="h-[calc(100vh-5rem)] flex flex-col items-center justify-center bg-base-100 animate-fade-in p-4 shadow-xl">
+      <div className="p-6 bg-base-100 rounded-xl shadow-md w-full max-w-md text-center border border-gray-200">
+        <h2 className="text-2xl font-semibold mb-1">Share this link with participants</h2>
         <p className="text-sm text-gray-500 mb-4">
           Anyone with this link can join the test.
         </p>
@@ -56,7 +56,7 @@ const LinkGenerator = () => {
           </p>
         )}
 
-        <div className="text-left text-sm text-gray-600 mt-6 border-t pt-4">
+        <div className="text-left text-sm text-gray-500 mt-6 border-t pt-4">
           <p>🔹 Share this link with students who need to take the test.</p>
           <p>🔹 You can track test participation and status on your dashboard.</p>
           <p>🔹 Chrome browser is recommended for the best experience.</p>
