@@ -26,10 +26,10 @@ app.use("/api/auth", authRoutes)
 app.use("/api", examRoutes)
 app.use("/api", submitRoutes)
 app.use("/api", dashboardRoutes)
+connectDB()
 
 app.listen(PORT,()=>{
     console.log(`Server is running on ${PORT}`);
-    connectDB()
 })
 
 
