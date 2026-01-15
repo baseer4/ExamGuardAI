@@ -4,9 +4,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: cupcake --default,forest;
+  themes: emerald --default,forest;
 }
 
 
@@ -17,7 +19,7 @@
   --font-open: "Open Sans", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-noto-sans: "Noto Sans", sans-serif;
-
+  --font-courgette: "Courgette", cursive;
   
  
   --animate-fade-in-scale: fade-in-scale 0.3s ease-out;
@@ -41,6 +43,17 @@
     }
   }
 
+}
+.bg-grid-pattern {
+ background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+} 
+#pricing,
+#features,
+#how-it-works {
+  scroll-margin-top: 100px;
 }
 
 /* todo hero section */

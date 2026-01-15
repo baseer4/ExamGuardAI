@@ -5,15 +5,15 @@ import { useEffect, useState } from "react";
 
 const ProtectedRoute = () => {
   const { authUser } = useAuthStore();
-  const [toastShown, setToastShown] = useState(false);
+  // const [toastShown, setToastShown] = useState(false);
 
-  useEffect(() => {
-    if (!authUser && !toastShown) {
-      toast.dismiss();
-      toast.error("Please log in to continue.");
-      setToastShown(true);
-    }
-  }, [authUser, toastShown]);
+  // useEffect(() => {
+  //   if (!authUser && !toastShown) {
+  //     toast.dismiss();
+  //     toast.error("Please log in to continue.");
+  //     setToastShown(true);
+  //   }
+  // }, [authUser, toastShown]);
 
   if (!authUser) {
     return <Navigate to="/" />;

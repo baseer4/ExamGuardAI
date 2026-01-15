@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const GithubSection = () => (
-  <section className="h-screen w-full flex justify-center items-starts pt-36 snap-start relative overflow-hidden text-black">
+  <section className="w-full flex justify-center items-starts pt-36 snap-start relative overflow-hidden text-black pb-56">
     {/* 1 Ellipse */}
     <motion.div
       className="absolute rounded-[50%] border border-base-content/20

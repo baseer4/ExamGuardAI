@@ -1,148 +1,102 @@
-import React from "react";
-import {
-  WandSparkles,
-  Code2,
-  Sparkles,
-  Users,
-  Shield,
-} from "lucide-react";
-import { motion } from "framer-motion";
+import { Code2, Sparkles, Users, Shield, ArrowRight } from "lucide-react";
 
-const Keyfeatures = () => {
-  const line1 = "Key Features that Elevate";
-  const line2 = "Your Exam Integrity";
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.035,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const letterVariant = {
-    hidden: () => ({
-      rotate: 75,
-      y: 30,
-      opacity: 0,
-    }),
-    visible: {
-      rotate: 0,
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 280,
-        damping: 14,
-      },
-    },
-  };
-  const renderAnimatedText = (text) =>
-    text.split("").map((char, i) => (
-      <motion.span
-        key={i}
-        custom={i}
-        variants={letterVariant}
-        className="inline-block"
-      >
-        {char === " " ? "\u00A0" : char}
-      </motion.span>
-    ));
-const cards = [
+const features = [
   {
-    icon: <Code2 size={36} />,
+    icon: Code2,
     title: "Real-Time Monitoring",
-    desc: "Track exam activity live with AI-powered insights, keeping every assessment fair and secure.",
-    color: "bg-blue-100 text-blue-600",
+    description:
+      "ExamGuard uses Google MediaPipe FaceMesh (468 3D facial landmarks) to monitor students continuously during the exam, detecting suspicious movements and behaviors in real time.",
   },
   {
-    icon: <Sparkles size={36} />,
-    title: "Smart AI Detection",
-    desc: "Automatically detect suspicious behavior like multiple faces, phone usage, or abnormal gaze patterns.",
-    color: "bg-purple-100 text-purple-600",
+    icon: Sparkles,
+    title: "Behavioral Analysis",
+    description:
+      "Monitors student focus by analyzing head pose and gaze direction, flagging suspicious instances of looking off-screen for extended periods.",
   },
   {
-    icon: <Users size={36} />,
+    icon: Shield,
+    title: "Zero-Knowledge Privacy Architecture",
+    description:
+      "All analysis runs entirely in the user’s device memory. No video is ever uploaded, giving real-time proctoring with complete privacy.",
+  },
+  {
+    icon: Users,
     title: "Seamless Collaboration",
-    desc: "Enable teachers and admins to manage tests together, review reports and results effortlessly.",
-    color: "bg-red-100 text-red-600",
-  },
-  {
-    icon: <Shield size={36} />,
-    title: "Top-Notch Security",
-    desc: "All exam data is encrypted and fully secure, ensuring student privacy and exam integrity at all times.",
-    color: "bg-green-100 text-green-600",
+    description:
+      "Enable teachers and admins to manage tests together, review reports and results effortlessly.",
   },
 ];
 
+export default function KeyFeatures() {
   return (
-    <section className="min-h-screen lg:h-screen flex flex-col items-center snap-start ">
-      <div className="text-center mb-10">
-        <div className="flex items-center justify-center gap-2 border-2 border-base-content/60 rounded-4xl p-2 w-fit mx-auto mt-2 mb-2 md:mb-0">
-          <WandSparkles size={18} />
-          <motion.span
-            initial={{ rotate: -8 }}
-            animate={{ rotate: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-xs md:text-sm font-semibold font-open text-base-content flex items-center gap-1"
-          >
-            Key Features
-          </motion.span>
+    <section
+      id="features"
+      className="relative py-24 px-6 lg:px-8 bg-base-300/10 border-y border-base-300/50 overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-grid-pattern text-base-content/5 pointer-events-none" />
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-end mb-20">
+          <div className="lg:w-1/2 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-base-300 bg-base-200/50 text-xs font-medium uppercase tracking-wider text-base-content/60">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+              Why Choose Us
+            </div>
+
+            <h2 className="text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-base-content">
+              Powerful features <br />
+              built for{" "}
+              <span className="relative whitespace-nowrap text-accent">
+                Excellence
+                <svg
+                  className="absolute -bottom-2 left-0 w-full h-3 text-secondary"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M0 5 Q 50 10 100 5"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="none"
+                    className="opacity-60"
+                  />
+                </svg>
+              </span>
+            </h2>
+          </div>
+
+          <div className="lg:w-1/2 lg:pb-4">
+            <div className="pl-6 border-l-4 border-accent/30">
+              <p className="text-lg sm:text-xl text-base-content/70 leading-relaxed">
+                Comprehensive tools designed to ensure exam integrity, protect
+                student data, and streamline the entire assessment process from
+                setup to results.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <motion.h2
-          className="mt-2 text-3xl md:text-6xl font-noto-sans font-semibold text-base-content leading-tight tracking-tight inline-block"
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }} 
-        >
-          {renderAnimatedText(line1)}
-          <br />
-          {renderAnimatedText(line2)}
-        </motion.h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="group relative rounded-2xl border border-base-300/40 bg-base-100 p-8 transition-all duration-300 hover:border-accent/40 hover:shadow-xl hover:-translate-y-1"
+            >
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
 
-        <motion.h3
-          className="mt-0 md:mt-4 text-gray-500 max-w-2xl mx-auto text-center leading-relaxed p-4 md:p-0"
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.6, ease: "easeOut",delay:0.5 },
-            },
-          }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-        >
-          Explore how our features change the way exams are taken & monitored.
-          <br className="hidden md:block"/>
-            <span className="hidden md:inline">
-
-           From smart tracking to instant reports, every tool is built to make
-          testing fair, clear, and effortless.
-          </span>
-        </motion.h3>
-      </div>
-      <div className="w-full py-6 flex justify-center">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl px-6 mb-20 -mt-10 md:-mt-6">
-          {cards.map((card, i) => (
-            <div key={i} className="card bg-base-300/10 backdrop-blur-3xl ">
-              <div className="card-inner relative ">
-                <div className="card-shine absolute"></div>
-                <div
-                  className={`w-16 h-16 flex items-center justify-center rounded-full ${card.color} mb-6 mx-auto`}
-                >
-                  {card.icon}
+              <div className="mb-6 flex justify-between items-start">
+                <div className="w-14 h-14 rounded-xl bg-base-200/50 flex items-center justify-center group-hover:bg-accent text-accent group-hover:text-accent-content transition-all duration-300">
+                  <feature.icon size={26} />
                 </div>
-                <h3 className="font-semibold text-center mb-2 text-base-content">
-                  {card.title}
+                <ArrowRight className="w-5 h-5 text-base-content/30 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+              </div>
+
+              <div className="space-y-3 relative z-10">
+                <h3 className="text-xl font-bold text-base-content group-hover:text-accent transition-colors">
+                  {feature.title}
                 </h3>
-                <p className="text-sm text-gray-500 text-center">{card.desc}</p>
+                <p className="text-base-content/80 leading-relaxed text-sm">
+                  {feature.description}
+                </p>
               </div>
             </div>
           ))}
@@ -150,6 +104,4 @@ const cards = [
       </div>
     </section>
   );
-};
-
-export default Keyfeatures;
+}
